@@ -28,6 +28,20 @@ export const POSTS_TITLE_SEARCH_DEBOUNCE_MS = 350;
 
 export const POSTS_DEFAULT_PAGE_SIZE = 10;
 
+/** Todos overview table (aligned with `todos-overview` grid). */
+export const TODOS_TABLE_HEADERS = [
+  "ID",
+  "Title",
+  "User ID",
+  "Status",
+  "Actions",
+] as const;
+
+export const TODOS_TABLE_GRID =
+  "56px minmax(0,1.25fr) minmax(0,0.65fr) minmax(0,0.85fr) 44px" as const;
+
+export const TODOS_DEFAULT_PAGE_SIZE = POSTS_DEFAULT_PAGE_SIZE;
+
 /** How many recent posts power the frequency chart, and how many bars to emphasize. */
 export const POSTS_POSTING_FREQUENCY = {
   barCount: 7,
