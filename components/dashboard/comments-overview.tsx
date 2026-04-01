@@ -1,268 +1,405 @@
-import { ChevronDown, ChevronRight, MessageSquare } from "lucide-react";
+"use client";
 
-type CommentRow = {
-  id: string;
-  author: string;
-  email: string;
-  excerpt: string;
-  expanded?: boolean;
-};
-
-const commentRows: CommentRow[] = [
-  {
-    id: "#1001",
-    author: "Eliseo",
-    email: "eliseo@gardner.biz",
-    excerpt: "laudantium enim quasi est quidem mag...",
-    expanded: true,
-  },
-  {
-    id: "#1002",
-    author: "Jayne Kuhic",
-    email: "jayne_kuhic@sydney.com",
-    excerpt: "est natus enim nihil est dolore omnis v...",
-  },
-  {
-    id: "#1003",
-    author: "Nikita",
-    email: "nikita@garfield.biz",
-    excerpt: "quia molestiae reprehenderit quasi asp...",
-  },
-  {
-    id: "#1004",
-    author: "Lew",
-    email: "lew@alysha.tv",
-    excerpt: "non et expedita unde itaque eos volupt...",
-  },
-  {
-    id: "#1005",
-    author: "Hayden",
-    email: "hayden@althea.biz",
-    excerpt: "harum non quasi et ratione tempore iur...",
-  },
-];
-
-function FiltersRail() {
-  return (
-    <aside className="rounded-xl bg-[#f8fafc] p-4">
-      <div>
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6b7280]">
-          Post Association
-        </p>
-        <button
-          type="button"
-          className="mt-3 flex h-11 w-full items-center justify-between rounded-md border border-[#e5e7eb] bg-[#eef2f6] px-3 text-sm text-[#374151]"
-        >
-          <span>All Post IDs</span>
-          <ChevronDown className="h-4 w-4 text-[#6b7280]" strokeWidth={1.75} />
-        </button>
-      </div>
-
-      <div className="mt-7">
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6b7280]">
-          Date Range
-        </p>
-        <div className="mt-3 space-y-2">
-          <button
-            type="button"
-            className="h-11 w-full rounded-md border border-[#e5e7eb] bg-[#eef2f6] px-3 text-left text-sm text-[#374151]"
-          >
-            Last 24 Hours
-          </button>
-          <button
-            type="button"
-            className="h-11 w-full rounded-md border border-[#e5e7eb] bg-white px-3 text-left text-sm text-[#4b5563]"
-          >
-            Last 7 Days
-          </button>
-          <button
-            type="button"
-            className="h-11 w-full rounded-md border border-[#e5e7eb] bg-white px-3 text-left text-sm text-[#4b5563]"
-          >
-            Custom Range
-          </button>
-        </div>
-      </div>
-
-      <div className="mt-7">
-        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6b7280]">
-          Quick Stats
-        </p>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <article className="rounded-md border border-[#dbe3ee] bg-[#e9eff8] px-3 py-3">
-            <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#0b57d0]">
-              Avg/Day
-            </p>
-            <p className="mt-1 text-[31px] font-bold leading-none text-[#0b57d0]">42.8</p>
-          </article>
-          <article className="rounded-md border border-[#dbe3ee] bg-[#edf2f8] px-3 py-3">
-            <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-[#6b7280]">
-              Sentiment
-            </p>
-            <p className="mt-1 text-[31px] font-bold leading-none text-[#374151]">92%</p>
-          </article>
-        </div>
-      </div>
-
-      <article className="relative mt-5 overflow-hidden rounded-[10px] bg-[radial-gradient(circle_at_82%_22%,#10284f_0%,#071322_48%,#050b13_100%)] px-6 py-6">
-        <h3 className="text-[30px] font-bold leading-[1.04] tracking-tight text-white">
-          Need a custom query?
-        </h3>
-        <p className="mt-3 max-w-[210px] text-[16px] leading-[1.45] text-[#94a3b8]">
-          Use the GraphQL Explorer to build complex filters on comments.
-        </p>
-        <button
-          type="button"
-          className="mt-5 text-[18px] font-semibold text-[#dbe6ff] transition hover:text-white"
-        >
-          Open Explorer →
-        </button>
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -bottom-8 right-3 text-[170px] font-black leading-none text-white/10"
-        >
-          {"}"}
-        </span>
-      </article>
-    </aside>
-  );
-}
-
-function ExpandedMessageRow() {
-  return (
-    <div className="mx-4 mb-4 rounded-md border border-[#dbe3ee] bg-white px-4 py-4">
-      <div className="flex items-start gap-3">
-        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#e8effa]">
-          <MessageSquare className="h-4 w-4 text-[#2563eb]" strokeWidth={1.8} />
-        </div>
-        <div className="min-w-0">
-          <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#2563eb]">
-            Full Message Body
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-[#374151]">
-            "Laudantium enim quasi est quidem magnam voluptate ipsam eos tempora quo
-            necessitatibus autem quasi reiciendis et nam sapiente accusantium."
-          </p>
-          <div className="mt-3 flex items-center gap-4">
-            <button type="button" className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#2563eb]">
-              Approve
-            </button>
-            <button type="button" className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#dc2626]">
-              Delete
-            </button>
-            <button type="button" className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#6b7280]">
-              Mark as Spam
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CommentsTable() {
-  return (
-    <div className="overflow-hidden rounded-xl border border-[#dbe3ee] bg-[#f8fafc]">
-      <div className="grid grid-cols-[90px_1fr_1.3fr_1.7fr] bg-[#eef2f6] px-4 py-4">
-        {["ID", "Author", "Email Address", "Excerpt"].map((label) => (
-          <p key={label} className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6b7280]">
-            {label}
-          </p>
-        ))}
-      </div>
-
-      {commentRows.map((row, index) => (
-        <div key={row.id} className={`${index === commentRows.length - 1 ? "" : "border-b border-[#e5e7eb]"} bg-white`}>
-          <div className="grid grid-cols-[90px_1fr_1.3fr_1.7fr] items-center px-4 py-5">
-            <p className="text-sm text-[#9ca3af]">{row.id}</p>
-            <p className="text-sm font-semibold text-[#2b313c]">
-              {row.author.includes(" ") ? (
-                <>
-                  {row.author.split(" ")[0]}
-                  <br />
-                  {row.author.split(" ").slice(1).join(" ")}
-                </>
-              ) : (
-                row.author
-              )}
-            </p>
-            <p className="text-sm text-[#0b57d0]">{row.email}</p>
-            <p className="text-sm text-[#4b5563]">{row.excerpt}</p>
-          </div>
-          {row.expanded ? <ExpandedMessageRow /> : null}
-        </div>
-      ))}
-
-      <div className="flex items-center justify-between border-t border-[#e5e7eb] bg-white px-4 py-4">
-        <p className="text-sm text-[#4b5563]">Showing 1 - 5 of 500 comments</p>
-        <div className="flex items-center gap-2">
-          <button type="button" className="px-1 text-[#c4cbd6]">
-            <ChevronRight className="h-4 w-4 rotate-180" />
-          </button>
-          <button
-            type="button"
-            className="h-8 w-8 rounded-md bg-[#0b57d0] text-sm font-bold text-white"
-          >
-            1
-          </button>
-          <button type="button" className="h-8 w-8 text-sm font-semibold text-[#4b5563]">
-            2
-          </button>
-          <button type="button" className="h-8 w-8 text-sm font-semibold text-[#4b5563]">
-            3
-          </button>
-          <span className="px-1 text-[#9ca3af]">...</span>
-          <button type="button" className="h-8 w-8 text-sm font-semibold text-[#4b5563]">
-            100
-          </button>
-          <button type="button" className="px-1 text-[#4b5563]">
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { useQuery } from "@apollo/client/react";
+import { Loader2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  buildCommentQueryOptions,
+  GET_COMMENTS,
+  GET_COMMENTS_FOR_POST,
+  type CommentsForPostQueryResult,
+  type CommentsPage,
+  type CommentsQueryResult,
+} from "@/graphql/queries/comments";
+import { CommentsDataTable } from "@/components/ui/comments-data-table";
+import { CommentsFiltersRail } from "@/components/ui/comments-filters-rail";
+import {
+  DataTablePaginationSkeleton,
+  DataTableSkeleton,
+  TableEmptyState,
+} from "@/components/ui/data-table-states";
+import { QueryErrorPanel } from "@/components/ui/query-error-panel";
+import {
+  COMMENTS_BULK_FETCH_LIMIT,
+  COMMENTS_DEFAULT_PAGE_SIZE,
+  COMMENTS_FLAGGED_IDS_STORAGE_KEY,
+  COMMENTS_READ_IDS_STORAGE_KEY,
+  COMMENTS_SEARCH_DEBOUNCE_MS,
+  COMMENTS_TABLE_GRID,
+  COMMENTS_TABLE_HEADERS,
+  type CommentsDatePreset,
+  type CommentsInboxTab,
+} from "@/lib/constants";
+import { loadIdSetFromStorage, saveIdSetToStorage } from "@/lib/comments-id-storage";
+import { getErrorMessage } from "@/lib/get-error-message";
 
 export function CommentsOverview() {
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [postFilterId, setPostFilterId] = useState("");
+  const [datePreset, setDatePreset] = useState<CommentsDatePreset>("24h");
+  const [inboxTab, setInboxTab] = useState<CommentsInboxTab>("all");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(COMMENTS_DEFAULT_PAGE_SIZE);
+  const [expandedCommentId, setExpandedCommentId] = useState<string | null>(null);
+  const [readIds, setReadIds] = useState<Set<string>>(() => new Set());
+  const [flaggedIds, setFlaggedIds] = useState<Set<string>>(() => new Set());
+  const [storageReady, setStorageReady] = useState(false);
+  const lastTotalCountRef = useRef<number | null>(null);
+
+  const useClientInboxFilter = inboxTab !== "all";
+
+  useEffect(() => {
+    setReadIds(loadIdSetFromStorage(COMMENTS_READ_IDS_STORAGE_KEY));
+    setFlaggedIds(loadIdSetFromStorage(COMMENTS_FLAGGED_IDS_STORAGE_KEY));
+    setStorageReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!storageReady) return;
+    saveIdSetToStorage(COMMENTS_READ_IDS_STORAGE_KEY, readIds);
+  }, [readIds, storageReady]);
+
+  useEffect(() => {
+    if (!storageReady) return;
+    saveIdSetToStorage(COMMENTS_FLAGGED_IDS_STORAGE_KEY, flaggedIds);
+  }, [flaggedIds, storageReady]);
+
+  useEffect(() => {
+    const id = window.setTimeout(
+      () => setDebouncedSearch(searchInput.trim()),
+      COMMENTS_SEARCH_DEBOUNCE_MS,
+    );
+    return () => window.clearTimeout(id);
+  }, [searchInput]);
+
+  useEffect(() => {
+    setPage(1);
+    lastTotalCountRef.current = null;
+    setExpandedCommentId(null);
+  }, [debouncedSearch, postFilterId, inboxTab]);
+
+  useEffect(() => {
+    setExpandedCommentId(null);
+  }, [page, pageSize]);
+
+  const commentOptions = useMemo(
+    () => buildCommentQueryOptions(debouncedSearch, page, pageSize),
+    [debouncedSearch, page, pageSize],
+  );
+
+  const commentOptionsBulk = useMemo(
+    () => buildCommentQueryOptions(debouncedSearch, 1, COMMENTS_BULK_FETCH_LIMIT),
+    [debouncedSearch],
+  );
+
+  const rootCommentsQuery = useQuery<CommentsQueryResult>(GET_COMMENTS, {
+    variables: { options: commentOptions },
+    notifyOnNetworkStatusChange: true,
+    skip: Boolean(postFilterId) || useClientInboxFilter,
+  });
+
+  const postCommentsQuery = useQuery<CommentsForPostQueryResult>(GET_COMMENTS_FOR_POST, {
+    variables: { postId: postFilterId, options: commentOptions },
+    notifyOnNetworkStatusChange: true,
+    skip: !postFilterId || useClientInboxFilter,
+  });
+
+  const rootBulkQuery = useQuery<CommentsQueryResult>(GET_COMMENTS, {
+    variables: { options: commentOptionsBulk },
+    notifyOnNetworkStatusChange: true,
+    skip: Boolean(postFilterId) || !useClientInboxFilter,
+  });
+
+  const postBulkQuery = useQuery<CommentsForPostQueryResult>(GET_COMMENTS_FOR_POST, {
+    variables: { postId: postFilterId, options: commentOptionsBulk },
+    notifyOnNetworkStatusChange: true,
+    skip: !postFilterId || !useClientInboxFilter,
+  });
+
+  const loading = useClientInboxFilter
+    ? postFilterId
+      ? postBulkQuery.loading
+      : rootBulkQuery.loading
+    : postFilterId
+      ? postCommentsQuery.loading
+      : rootCommentsQuery.loading;
+
+  const error = useClientInboxFilter
+    ? postFilterId
+      ? postBulkQuery.error
+      : rootBulkQuery.error
+    : postFilterId
+      ? postCommentsQuery.error
+      : rootCommentsQuery.error;
+
+  const commentsPage: CommentsPage | undefined = useClientInboxFilter
+    ? postFilterId
+      ? postBulkQuery.data?.post?.comments
+      : rootBulkQuery.data?.comments
+    : postFilterId
+      ? postCommentsQuery.data?.post?.comments
+      : rootCommentsQuery.data?.comments;
+
+  const postMissing =
+    Boolean(postFilterId) &&
+    (useClientInboxFilter ? !postBulkQuery.loading : !postCommentsQuery.loading) &&
+    (useClientInboxFilter ? !postBulkQuery.error : !postCommentsQuery.error) &&
+    (useClientInboxFilter ? postBulkQuery.data : postCommentsQuery.data) != null &&
+    (useClientInboxFilter ? postBulkQuery.data?.post : postCommentsQuery.data?.post) ==
+      null;
+
+  const sourceRows = commentsPage?.data ?? [];
+
+  const filteredFullList = useMemo(() => {
+    if (!useClientInboxFilter) return null;
+    if (inboxTab === "unread") return sourceRows.filter((r) => !readIds.has(r.id));
+    if (inboxTab === "flagged") return sourceRows.filter((r) => flaggedIds.has(r.id));
+    return sourceRows;
+  }, [useClientInboxFilter, inboxTab, sourceRows, readIds, flaggedIds]);
+
+  const listTotalCount =
+    useClientInboxFilter && commentsPage == null
+      ? null
+      : useClientInboxFilter
+        ? (filteredFullList?.length ?? 0)
+        : (commentsPage?.meta?.totalCount ?? lastTotalCountRef.current);
+
+  useEffect(() => {
+    if (useClientInboxFilter) {
+      const n = filteredFullList?.length;
+      if (n != null) lastTotalCountRef.current = n;
+    } else {
+      const t = commentsPage?.meta?.totalCount;
+      if (t != null) lastTotalCountRef.current = t;
+    }
+  }, [useClientInboxFilter, filteredFullList, commentsPage]);
+
+  const totalPages =
+    listTotalCount != null && listTotalCount > 0
+      ? Math.max(1, Math.ceil(listTotalCount / pageSize))
+      : 1;
+
+  useEffect(() => {
+    if (listTotalCount == null) return;
+    setPage((p) => Math.min(Math.max(1, p), totalPages));
+  }, [totalPages, listTotalCount]);
+
+  const rows = useMemo(() => {
+    if (!useClientInboxFilter) return sourceRows;
+    const full = filteredFullList ?? [];
+    const start = (page - 1) * pageSize;
+    return full.slice(start, start + pageSize);
+  }, [useClientInboxFilter, sourceRows, filteredFullList, page, pageSize]);
+
+  const isInitialLoading =
+    !postMissing && loading && !commentsPage && page === 1;
+  const isPagingWithoutRows =
+    !postMissing && loading && !commentsPage && page > 1;
+  const isRefetching = !postMissing && loading && Boolean(commentsPage);
+  const statsPlaceholder = isInitialLoading || isPagingWithoutRows;
+
+  const refetchComments = () => {
+    if (useClientInboxFilter) {
+      void (postFilterId ? postBulkQuery.refetch() : rootBulkQuery.refetch());
+    } else {
+      void (postFilterId ? postCommentsQuery.refetch() : rootCommentsQuery.refetch());
+    }
+  };
+
+  const markCommentRead = (commentId: string) => {
+    setReadIds((prev) => {
+      if (prev.has(commentId)) return prev;
+      const next = new Set(prev);
+      next.add(commentId);
+      return next;
+    });
+  };
+
+  const handleToggleExpand = (commentId: string) => {
+    setExpandedCommentId((current) => {
+      const next = current === commentId ? null : commentId;
+      if (next != null) markCommentRead(next);
+      return next;
+    });
+  };
+
+  const handleApproveComment = (commentId: string) => {
+    markCommentRead(commentId);
+    setFlaggedIds((prev) => {
+      if (!prev.has(commentId)) return prev;
+      const next = new Set(prev);
+      next.delete(commentId);
+      return next;
+    });
+  };
+
+  const handleDeleteComment = (commentId: string) => {
+    setFlaggedIds((prev) => {
+      if (!prev.has(commentId)) return prev;
+      const next = new Set(prev);
+      next.delete(commentId);
+      return next;
+    });
+  };
+
+  const handleMarkFlagged = (commentId: string) => {
+    setFlaggedIds((prev) => {
+      if (prev.has(commentId)) return prev;
+      const next = new Set(prev);
+      next.add(commentId);
+      return next;
+    });
+  };
+
+  const totalTitleDisplay =
+    statsPlaceholder && listTotalCount == null
+      ? "…"
+      : listTotalCount != null
+        ? listTotalCount.toLocaleString()
+        : "—";
+
+  const tabButtonClass = (tab: CommentsInboxTab) =>
+    `rounded px-4 py-2 text-[12px] font-semibold transition ${
+      inboxTab === tab
+        ? "bg-white font-bold text-[#0048C1] shadow-sm"
+        : "text-[#6b7280]"
+    }`;
+
   return (
-    <section className="px-6 py-8 lg:px-8">
-      <div className="mb-7 flex flex-wrap items-start justify-between gap-6">
-        <div>
-          <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
-            Comments <span className="text-[22px] font-semibold text-[#0b57d0]">/ 500 total</span>
-          </h1>
-          <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
+    <section className="font-inter px-6 py-8 lg:px-7">
+      <div className="mb-7">
+        <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
+          Comments{" "}
+          <span className="text-[22px] font-semibold text-[#0048C1]">
+            / {totalTitleDisplay} total
+          </span>
+        </h1>
+        <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <p className="max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
             Manage and curate community feedback across all editorial posts.
             <br />
             Utilize inline inspection for content moderation.
           </p>
-        </div>
-        <div className="mt-1 flex items-center rounded-md bg-[#f3f6fa] p-1">
-          <button
-            type="button"
-            className="rounded bg-white px-4 py-2 text-[12px] font-bold text-[#0b57d0] shadow-sm"
-          >
-            All
-          </button>
-          <button
-            type="button"
-            className="rounded px-4 py-2 text-[12px] font-semibold text-[#6b7280]"
-          >
-            Unread
-          </button>
-          <button
-            type="button"
-            className="rounded px-4 py-2 text-[12px] font-semibold text-[#6b7280]"
-          >
-            Flagged
-          </button>
+          <div className="flex shrink-0 flex-col items-stretch gap-2 sm:items-end">
+            <div
+              className="flex items-center rounded-md bg-[#f3f6fa] p-1"
+              role="tablist"
+              aria-label="Comment inbox filter"
+            >
+              <button
+                type="button"
+                role="tab"
+                aria-selected={inboxTab === "all"}
+                className={tabButtonClass("all")}
+                onClick={() => setInboxTab("all")}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={inboxTab === "unread"}
+                className={tabButtonClass("unread")}
+                onClick={() => setInboxTab("unread")}
+              >
+                Unread
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={inboxTab === "flagged"}
+                className={tabButtonClass("flagged")}
+                onClick={() => setInboxTab("flagged")}
+              >
+                Flagged
+              </button>
+            </div>
+            {isRefetching ? (
+              <p className="flex items-center justify-end gap-1.5 text-[11px] font-medium text-[#64748b]">
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-[#0048C1]" aria-hidden />
+                Refreshing…
+              </p>
+            ) : null}
+          </div>
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <FiltersRail />
-        <CommentsTable />
+      {error ? (
+        <QueryErrorPanel
+          title="Could not load comments"
+          message={getErrorMessage(error)}
+          onRetry={refetchComments}
+        />
+      ) : null}
+
+      <div className="grid gap-7 lg:grid-cols-[222px_minmax(0,714px)]">
+        <CommentsFiltersRail
+          postFilterId={postFilterId}
+          onPostFilterIdChange={setPostFilterId}
+          datePreset={datePreset}
+          onDatePresetChange={setDatePreset}
+        />
+        <div className="min-w-0">
+          {isInitialLoading ? (
+            <DataTableSkeleton
+              columnHeaders={[...COMMENTS_TABLE_HEADERS]}
+              gridTemplateColumns={COMMENTS_TABLE_GRID}
+              rowCount={Math.min(pageSize, 25)}
+              loadingMessage="Loading comments…"
+              aria-label="Loading comments table"
+            />
+          ) : error ? null : postMissing ? (
+            <TableEmptyState
+              title="Post not found"
+              description="That post ID is not in the dataset. Choose another post or “All Post IDs”."
+            />
+          ) : isPagingWithoutRows ? (
+            <DataTableSkeleton
+              columnHeaders={[...COMMENTS_TABLE_HEADERS]}
+              gridTemplateColumns={COMMENTS_TABLE_GRID}
+              rowCount={Math.min(pageSize, 25)}
+              loadingMessage="Loading page…"
+              footer={<DataTablePaginationSkeleton />}
+              aria-label="Loading comments page"
+            />
+          ) : !loading && rows.length === 0 ? (
+            inboxTab === "flagged" && flaggedIds.size === 0 ? (
+              <TableEmptyState
+                title="No flagged comments yet"
+                description="Expand a comment and choose Mark as Spam. Flagged items are stored in this browser for the Flagged tab."
+              />
+            ) : inboxTab === "unread" ? (
+              <TableEmptyState
+                title="No unread comments"
+                description="Every comment in the current scope is marked read, or there are no matches. Open All to browse the full list."
+              />
+            ) : (
+              <TableEmptyState
+                title="No comments match your filters"
+                description="Try a different search, pick another post, or clear the search field."
+              />
+            )
+          ) : (
+            <CommentsDataTable
+              rows={rows}
+              expandedCommentId={expandedCommentId}
+              onToggleExpand={handleToggleExpand}
+              flaggedIds={flaggedIds}
+              onApproveComment={handleApproveComment}
+              onDeleteComment={handleDeleteComment}
+              onMarkFlagged={handleMarkFlagged}
+              totalCount={listTotalCount}
+              page={page}
+              pageSize={pageSize}
+              onPageChange={setPage}
+              onPageSizeChange={(next) => {
+                setPageSize(next);
+                setPage(1);
+              }}
+            />
+          )}
+        </div>
       </div>
     </section>
   );

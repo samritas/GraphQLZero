@@ -139,23 +139,23 @@ export function PostsOverview() {
 
   return (
     <section className="font-inter px-5 py-8 lg:px-7">
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <h1 className="font-title text-[30px] font-bold  leading-tight tracking-tight text-[#2A3439]">
-            Editorial Posts
-          </h1>
-          <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#566166]">
+      <div className="mb-7">
+        <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
+          Editorial Posts
+        </h1>
+        <div className="mt-1 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <p className="max-w-2xl text-[16px] leading-relaxed text-[#566166]">
             Managing the foundational data nodes of GraphQLZero .
           </p>
-        </div>
-        <div className="flex flex-col items-end gap-2">
-          <ViewToggle />
-          {isRefetching ? (
-            <p className="flex items-center gap-1.5 text-[11px] font-medium text-[#64748b]">
-              <Loader2 className="h-3.5 w-3.5 animate-spin text-[#2563eb]" aria-hidden />
-              Refreshing…
-            </p>
-          ) : null}
+          <div className="flex shrink-0 flex-col items-stretch gap-2 sm:items-end">
+            <ViewToggle />
+            {isRefetching ? (
+              <p className="flex items-center justify-end gap-1.5 text-[11px] font-medium text-[#64748b]">
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-[#2563eb]" aria-hidden />
+                Refreshing…
+              </p>
+            ) : null}
+          </div>
         </div>
       </div>
 

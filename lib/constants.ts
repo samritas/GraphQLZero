@@ -39,3 +39,52 @@ export const POSTS_ROW_FALLBACKS = {
   empty: "—",
   unknownInitials: "?",
 } as const;
+
+/** Column labels for the comments overview table. */
+export const COMMENTS_TABLE_HEADERS = [
+  "ID",
+  "AUTHOR",
+  "EMAIL ADDRESS",
+  "EXCERPT",
+] as const;
+
+/** Grid template aligned with the comments table layout. */
+export const COMMENTS_TABLE_GRID =
+  "90px minmax(0,1fr) minmax(0,1.3fr) minmax(0,1.7fr)" as const;
+
+export const COMMENTS_DEFAULT_PAGE_SIZE = POSTS_DEFAULT_PAGE_SIZE;
+
+export const COMMENTS_SEARCH_DEBOUNCE_MS = POSTS_TITLE_SEARCH_DEBOUNCE_MS;
+
+/** Target length for excerpt column (ellipsis added when truncated). */
+export const COMMENTS_EXCERPT_MAX_LENGTH = 56;
+
+/** Posts listed in the comments sidebar “Post association” control. */
+export const COMMENTS_POST_ASSOCIATION_PAGE = {
+  page: 1,
+  limit: 100,
+} as const;
+
+/** Sample size for sidebar “sentiment” (share of longer bodies). */
+export const COMMENTS_SIDEBAR_SAMPLE_LIMIT = 100;
+
+/** Body length at or above this counts as “substantive” for the sentiment stat. */
+export const COMMENTS_SUBSTANTIVE_BODY_MIN_CHARS = 100;
+
+/** Fetch window for Unread/Flagged tabs (GraphQLZero has ≤500 comments). */
+export const COMMENTS_BULK_FETCH_LIMIT = 500;
+
+/** localStorage keys for inbox filters (API has no read/flag fields). */
+export const COMMENTS_READ_IDS_STORAGE_KEY = "graphqlzero.comments.readIds";
+export const COMMENTS_FLAGGED_IDS_STORAGE_KEY = "graphqlzero.comments.flaggedIds";
+
+export const COMMENTS_DATE_RANGE_OPTIONS = [
+  { id: "24h", label: "Last 24 Hours" },
+  { id: "7d", label: "Last 7 Days" },
+  { id: "custom", label: "Custom Range" },
+] as const;
+
+export type CommentsDatePreset =
+  (typeof COMMENTS_DATE_RANGE_OPTIONS)[number]["id"];
+
+export type CommentsInboxTab = "all" | "unread" | "flagged";
