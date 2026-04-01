@@ -1,31 +1,38 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 function MainButton({
   children,
   variant = "primary",
+  href,
 }: {
   children: ReactNode;
   variant?: "primary" | "secondary";
+  href?: string;
 }) {
   const base =
     "rounded-[10px] px-8 py-3.5 text-lg font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b57d0]/35";
 
   if (variant === "secondary") {
-    return (
-      <button
-        type="button"
-        className={`${base} bg-[#d6dbe3] text-[#4f5f72] hover:bg-[#ccd2dc]`}
-      >
+    const className = `${base} bg-[#d6dbe3] text-[#4f5f72] hover:bg-[#ccd2dc]`;
+    return href ? (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    ) : (
+      <button type="button" className={className}>
         {children}
       </button>
     );
   }
 
-  return (
-    <button
-      type="button"
-      className={`${base} bg-[#0b57d0] text-white shadow-[0_10px_24px_rgba(11,87,208,0.28)] hover:bg-[#0a4dc0]`}
-    >
+  const className = `${base} bg-[#0b57d0] text-white shadow-[0_10px_24px_rgba(11,87,208,0.28)] hover:bg-[#0a4dc0]`;
+  return href ? (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <button type="button" className={className}>
       {children}
     </button>
   );
@@ -96,7 +103,7 @@ export function HeroSection() {
           through a powerful GraphQL endpoint. Zero setup, infinite scale.
         </p>
         <div className="mt-14 flex flex-wrap items-center gap-4">
-          <MainButton>Go to Dashboard</MainButton>
+          <MainButton href="/dashboard">Go to Dashboard</MainButton>
           <MainButton variant="secondary">Read Docs</MainButton>
         </div>
       </section>

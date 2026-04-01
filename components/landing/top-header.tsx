@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const navItems = ["Docs", "Schema", "Examples", "Playground"];
 
 function Brand() {
@@ -44,12 +46,12 @@ export function TopHeader() {
             </a>
           ))}
         </nav>
-        <button
-          type="button"
+        <Link
+          href="/dashboard"
           className="rounded-md bg-[#0b57d0] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_2px_4px_rgba(11,87,208,0.3)] transition hover:bg-[#0a4dc0]"
         >
           Go to Dashboard
-        </button>
+        </Link>
       </div>
     </header>
   );

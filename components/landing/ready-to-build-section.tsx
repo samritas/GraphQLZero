@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function ReadyToBuildSection() {
   return (
     <section className="w-full pb-24">
@@ -11,12 +13,12 @@ export function ReadyToBuildSection() {
             tutorials, and test suites.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <button
-              type="button"
+            <Link
+              href="/dashboard"
               className="rounded-[14px] bg-[#0b57d0] px-10 py-4 text-xl font-semibold text-white shadow-[0_10px_24px_rgba(11,87,208,0.28)] transition hover:bg-[#0a4dc0]"
             >
               Go to Dashboard
-            </button>
+            </Link>
             <button
               type="button"
               className="rounded-[14px] bg-[#c9d3dd] px-10 py-4 text-xl font-semibold text-[#3f4f62] transition hover:bg-[#bcc8d4]"
