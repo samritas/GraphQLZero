@@ -267,10 +267,10 @@ export function TodosOverview() {
     <section className="px-6 py-8 lg:px-8">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-[40px] font-bold leading-tight tracking-tight text-[#1f2937]">
+          <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
             Task Management
           </h1>
-          <p className="mt-2 text-sm leading-relaxed text-[#64748b]">
+          <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
             Curating the Graphé LZero Todos dataset with editorial precision.
           </p>
         </div>

@@ -7,7 +7,22 @@ const config: Config = {
     "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        title: [
+          "var(--font-manrope)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+        inter: [
+          "var(--font-inter)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+      },
+    },
   },
   plugins: [],
 };

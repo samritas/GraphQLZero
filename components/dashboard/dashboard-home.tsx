@@ -3,8 +3,10 @@ import Link from "next/link";
 export function DashboardHome() {
   return (
     <section className="px-8 py-8">
-      <h1 className="text-3xl font-bold text-[#2a3442]">Dashboard</h1>
-      <p className="mt-2 text-base text-[#5c6e83]">
+      <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
+        Dashboard
+      </h1>
+      <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
         Overview of GraphQLZero admin metrics and quick access to entities.
       </p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -253,10 +253,10 @@ export function UsersOverview() {
       <p className="text-xs text-[#94a3b8]">
         Console <span className="text-[#0b57d0]">› Users Management</span>
       </p>
-      <h1 className="mt-1.5 text-[40px] font-bold leading-[1.02] tracking-tight text-[#1f2937]">
+      <h1 className="font-title mt-1.5 text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
         The Directory
       </h1>
-      <p className="mt-2 max-w-3xl text-[16px] leading-[1.45] text-[#4b5563]">
+      <p className="mt-2 max-w-3xl text-[16px] leading-relaxed text-[#64748b]">
         A curated overview of all registered system architects and contributors.
         Manage permissions, monitor activity, and explore entity relationships.
       </p>

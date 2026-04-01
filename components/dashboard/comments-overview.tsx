@@ -229,10 +229,10 @@ export function CommentsOverview() {
     <section className="px-6 py-8 lg:px-8">
       <div className="mb-7 flex flex-wrap items-start justify-between gap-6">
         <div>
-          <h1 className="text-[40px] font-bold leading-[1.05] tracking-tight text-[#1f2937]">
-            Comments <span className="text-[28px] font-semibold text-[#0b57d0]">/ 500 total</span>
+          <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
+            Comments <span className="text-[22px] font-semibold text-[#0b57d0]">/ 500 total</span>
           </h1>
-          <p className="mt-2 text-[16px] leading-[1.45] text-[#4b5563]">
+          <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
             Manage and curate community feedback across all editorial posts.
             <br />
             Utilize inline inspection for content moderation.

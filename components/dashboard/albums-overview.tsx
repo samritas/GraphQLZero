@@ -345,10 +345,10 @@ export function AlbumsOverview() {
     <section className="px-6 py-8 lg:px-8">
       <div className="flex flex-wrap items-start justify-between gap-6">
         <div>
-          <h1 className="text-[40px] font-bold leading-tight tracking-tight text-[#111827]">
+          <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
             Albums
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#6b7280]">
+          <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
             Curating 1,248 digital collections across the Graphé LZero ecosystem.
           </p>
         </div>

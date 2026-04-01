@@ -1,15 +1,33 @@
 import Link from "next/link";
-import { Bell, CircleHelp, Search } from "lucide-react";
+import { Bell, CircleHelp, Menu, Search } from "lucide-react";
 
-export function DashboardTopbar() {
+export function DashboardTopbar({
+  onMenuClick,
+  mobileNavOpen = false,
+}: {
+  onMenuClick?: () => void;
+  mobileNavOpen?: boolean;
+} = {}) {
   return (
-    <header className="sticky top-0 z-10 border-b border-[#e2e8f0] bg-white">
-      <div className="flex h-[68px] items-center justify-between gap-6 px-6 lg:px-8">
-        <div className="min-w-0 flex-1 max-w-xl">
+    <header className="sticky top-0 z-10 h-16 shrink-0 border-b border-[#e2e8f0] bg-[#F0F4F7]">
+      <div className="flex h-full items-center justify-between gap-3 px-4 sm:gap-6 sm:px-6 lg:px-8">
+        {onMenuClick ? (
+          <button
+            type="button"
+            onClick={onMenuClick}
+            className="-ml-1 inline-flex shrink-0 items-center justify-center rounded-lg p-2 text-[#475569] transition hover:bg-[#f1f5f9] hover:text-[#0f172a] lg:hidden"
+            aria-label="Open navigation menu"
+            aria-controls="dashboard-sidebar"
+            aria-expanded={mobileNavOpen}
+          >
+            <Menu className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+          </button>
+        ) : null}
+        <div className="w-full max-w-[384px] shrink-0 sm:w-[384px]">
           <label htmlFor="dashboard-search" className="sr-only">
             Search
           </label>
-          <div className="flex items-center gap-3 rounded-[10px] border border-[#e2e8f0] bg-[#f8fafc] px-4 py-2.5">
+          <div className="flex h-[52px] items-center gap-3 rounded-lg border border-[#e2e8f0] bg-[#f8fafc] px-4">
             <Search
               className="h-4 w-4 shrink-0 text-[#94a3b8]"
               strokeWidth={1.5}
@@ -24,7 +42,7 @@ export function DashboardTopbar() {
           </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-5">
+        <div className="hidden shrink-0 items-center gap-5 sm:flex">
           <Link
             href="#"
             className="text-sm font-medium text-[#475569] transition hover:text-[#0f172a]"

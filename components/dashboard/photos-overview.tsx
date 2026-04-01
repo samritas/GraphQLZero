@@ -245,10 +245,10 @@ export function PhotosOverview() {
           <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#6b7280]">
             Dashboard <span className="mx-1">›</span> Photos
           </p>
-          <h1 className="mt-2 text-[40px] font-bold leading-tight tracking-tight text-[#1f2937]">
+          <h1 className="font-title mt-2 text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
             Image Library
           </h1>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#64748b]">
+          <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
             Manage your application's visual assets across all albums. Filter by ID or album to
             optimize data retrieval.
           </p>
