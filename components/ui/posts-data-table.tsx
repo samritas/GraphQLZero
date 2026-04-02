@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useQuery } from "@apollo/client/react";
 import { Loader2 } from "lucide-react";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
@@ -73,10 +74,12 @@ export function PostsDataTableRow({
           onActivate();
         }
       }}
-      className={`grid cursor-pointer items-start px-5 py-6 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#0053DB]/35 focus-visible:ring-offset-2 ${
+      className={`grid max-md:grid-cols-1 max-md:gap-4 md:gap-0 md:[grid-template-columns:var(--posts-grid-cols)] cursor-pointer items-start px-5 py-6 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#0053DB]/35 focus-visible:ring-offset-2 ${
         selected ? "bg-white" : "bg-[#f1f5f9]"
       } ${isLast ? "" : "border-b border-[#e2e8f0]"}`}
-      style={{ gridTemplateColumns }}
+      style={
+        { ["--posts-grid-cols"]: gridTemplateColumns } as CSSProperties
+      }
       aria-expanded={selected}
       aria-label={`Post ${row.id}, ${row.title}`}
     >
@@ -87,7 +90,7 @@ export function PostsDataTableRow({
       >
         {row.id}
       </div>
-      <div className="min-w-0 pr-4">
+      <div className="min-w-0 max-md:pr-0 pr-4">
         <p className="text-[15px] font-bold leading-snug text-[#0f172a]">
           {displayTitle}
         </p>
@@ -161,7 +164,7 @@ export function PostsDataTableRow({
           <p className="mt-0.5 text-[11px] text-[#566166]">{authorEmail}</p>
         </div>
       </div>
-      <div className="text-center">
+      <div className="max-md:text-left text-center">
         <p
           className={`text-2xl font-bold ${
             selected ? "text-[#0053DB]" : "text-[#2A3439]"
@@ -174,7 +177,7 @@ export function PostsDataTableRow({
         </p>
       </div>
       <div
-        className="flex flex-col items-center justify-start gap-2 pt-1 text-center"
+        className="flex max-md:w-full max-md:flex-row max-md:items-center max-md:justify-start max-md:gap-4 max-md:pt-0 max-md:text-left flex-col items-center justify-start gap-2 pt-1 text-center"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
       >
@@ -235,12 +238,15 @@ export function PostsDataTable({
   onPageSizeChange,
 }: PostsDataTableProps) {
   const centerSet = new Set(centerHeaderIndices);
+  const gridStyle = {
+    ["--posts-grid-cols"]: gridTemplateColumns,
+  } as CSSProperties;
 
   return (
     <div className="overflow-hidden rounded-[16px] border border-[#dbe3ee] bg-[#eef2f6] shadow-[0_1px_2px_rgba(15,23,42,0.05)]">
       <div
-        className="grid bg-[#e4ebf1] px-5 py-3.5"
-        style={{ gridTemplateColumns }}
+        className="hidden bg-[#e4ebf1] px-5 py-3.5 md:grid md:[grid-template-columns:var(--posts-grid-cols)]"
+        style={gridStyle}
       >
         {columnHeaders.map((label, i) => (
           <p

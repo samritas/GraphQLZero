@@ -105,7 +105,7 @@ export function HeroSection() {
             through a powerful GraphQL endpoint. Zero setup, infinite scale.
           </p>
           <div className="mt-14 flex flex-wrap items-center gap-4">
-            <MainButton href="/dashboard">Go to Dashboard</MainButton>
+            <MainButton href="/dashboard/posts">Go to Dashboard</MainButton>
             <MainButton variant="secondary">Read Docs</MainButton>
           </div>
         </section>

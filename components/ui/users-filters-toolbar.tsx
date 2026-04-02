@@ -23,13 +23,13 @@ export function UsersFiltersToolbar({
 }: UsersFiltersToolbarProps) {
   return (
     <div className="mt-8 rounded-lg bg-[#f1f5f9] px-2 py-2.5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex min-w-0 flex-wrap items-center gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
           <button
             type="button"
             aria-expanded={advancedOpen}
             onClick={onToggleAdvanced}
-            className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1.5 text-[11px] font-semibold transition-colors ${
+            className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1.5 text-[12px] font-semibold transition-colors ${
               advancedOpen
                 ? "border-[#0053DB] bg-white text-[#0053DB]"
                 : "border-[#e5e7eb] bg-white text-[#374151]"
@@ -48,7 +48,7 @@ export function UsersFiltersToolbar({
                   role="tab"
                   aria-selected={selected}
                   onClick={() => onRoleChange(id)}
-                  className={`rounded-full px-2 py-1 text-[9px] font-bold uppercase tracking-[0.06em] transition-colors ${
+                  className={`rounded-full px-2 py-1 text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ${
                     selected ? "bg-[#dbeafe] text-[#0053DB]" : "bg-[#dbe3ea] text-[#64748b] hover:bg-[#d1dae3]"
                   }`}
                 >
@@ -58,7 +58,7 @@ export function UsersFiltersToolbar({
             })}
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 border-t border-[#e2e8f0] pt-3 sm:border-t-0 sm:pt-0">
           <span className="text-[11px] text-[#6b7280]">Export:</span>
           <button
             type="button"
@@ -86,7 +86,7 @@ export function UsersFiltersToolbar({
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Name, email, username, company, city…"
             autoComplete="off"
-            className="w-full max-w-md rounded-md border border-[#e5e7eb] bg-white px-3 py-2 text-[13px] text-[#1f2937] shadow-sm outline-none placeholder:text-[#94a3b8] focus:border-[#93c5fd] focus:ring-2 focus:ring-[#0053DB]/20"
+            className="w-full max-w-full rounded-md border border-[#e5e7eb] bg-white px-3 py-2 text-[13px] text-[#1f2937] shadow-sm outline-none placeholder:text-[#94a3b8] focus:border-[#93c5fd] focus:ring-2 focus:ring-[#0053DB]/20 md:max-w-md"
           />
         </div>
       ) : null}

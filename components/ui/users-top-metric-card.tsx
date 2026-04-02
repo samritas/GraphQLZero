@@ -21,13 +21,15 @@ export function UsersTopMetricCard({
   tone = "blue",
 }: UsersTopMetricCardProps) {
   const shell =
-    "relative flex h-[160px] w-[309.33px] max-w-full min-h-0 flex-col overflow-hidden rounded-lg px-5 py-5";
-  const metricIconBoxBase =
-    "inline-flex h-[39px] w-[40px] shrink-0 items-center justify-center rounded-[4px] p-2";
+    "relative flex h-[160px] w-full min-w-0 max-w-full min-h-0 flex-col overflow-hidden rounded-lg px-5 py-5 lg:w-[309.33px]";
+  const metricIconShell =
+    "inline-flex h-[39px] w-[40px] shrink-0 items-center justify-center rounded-[4px]";
+  const iconPadding = !dark && tone === "entity" ? "p-1" : "p-2";
+  const metricIconBox = `${metricIconShell} ${iconPadding}`;
   const lightIconBox =
     tone === "entity"
-      ? `${metricIconBoxBase} bg-[#DFD5F780] text-[#625B77]`
-      : `${metricIconBoxBase} bg-[#eef2ff] text-[#0053DB]`;
+      ? `${metricIconBox} bg-[#DFD5F780] text-[#625B77]`
+      : `${metricIconBox} bg-[#eef2ff] text-[#0053DB]`;
   const lightAccent =
     tone === "entity"
       ? "inline-flex min-h-[24px] shrink-0 items-center justify-center  bg-[#DFD5F780] px-2.5 py-0.5 text-[12px] font-semibold text-[#625B77]"
@@ -44,9 +46,7 @@ export function UsersTopMetricCard({
       <div className="flex shrink-0 items-start justify-between gap-2">
         <span
           className={
-            dark
-              ? `${metricIconBoxBase} bg-black/15 text-white`
-              : lightIconBox
+            dark ? `${metricIconShell} p-2 bg-black/15 text-white` : lightIconBox
           }
         >
           {icon}

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { GalleryPhotoRecord } from "@/graphql/queries/albums";
 import { galleryPhotoImageSrc } from "@/lib/albums-display";
+import { useEffect, useState } from "react";
 
 export type AlbumsRecentGalleryProps = {
   photos: GalleryPhotoRecord[];
@@ -17,29 +18,68 @@ export function AlbumsRecentGallery({ photos, showPlaceholder }: AlbumsRecentGal
     photos[3] ?? null,
   ];
 
+  const placeholderSrcByCellIndex = [
+    "/recent-gallery/placeholder-1.png",
+    "/recent-gallery/placeholder-2.png",
+    "/recent-gallery/placeholder-3.png",
+    "/recent-gallery/placeholder-4.png",
+  ] as const;
+
+  function GalleryImageWithFallback({
+    src,
+    placeholderSrc,
+    alt,
+    sizes,
+  }: {
+    src: string | null | undefined;
+    placeholderSrc: string;
+    alt: string;
+    sizes: string;
+  }) {
+    const [errored, setErrored] = useState(false);
+
+    // If we switch to a different photo src, reset error state.
+    useEffect(() => {
+      setErrored(false);
+    }, [src]);
+
+    const finalSrc = !src || errored ? placeholderSrc : src;
+
+    return (
+      <Image
+        src={finalSrc}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes={sizes}
+        priority={false}
+        onError={() => setErrored(true)}
+      />
+    );
+  }
+
   const cell = (
     item: GalleryPhotoRecord | null,
     key: string,
     layoutClass: string,
     sizes: string,
+    placeholderSrc: string,
     overlay: { title: string; subtitle: string } | null,
   ) => (
     <article
       key={key}
-      className={`relative overflow-hidden rounded-[2rem] shadow-sm ring-1 ring-black/5 ${layoutClass}`}
+      className={`relative overflow-hidden rounded-[12px] shadow-sm ring-1 ring-black/5 ${layoutClass}`}
     >
-      {item && galleryPhotoImageSrc(item) ? (
-        <Image
-          src={galleryPhotoImageSrc(item)}
-          alt={item.title || "Gallery"}
-          fill
-          className="object-cover"
-          sizes={sizes}
-          priority={false}
-        />
-      ) : (
+      {!item && showPlaceholder ? (
         <div
           className={`h-full min-h-[inherit] w-full bg-[#e2e8f0] ${showPlaceholder ? "animate-pulse" : ""}`}
+        />
+      ) : (
+        <GalleryImageWithFallback
+          src={item ? galleryPhotoImageSrc(item) : null}
+          placeholderSrc={placeholderSrc}
+          alt={item?.title || "Gallery"}
+          sizes={sizes}
         />
       )}
       {overlay ? (
@@ -65,6 +105,7 @@ export function AlbumsRecentGallery({ photos, showPlaceholder }: AlbumsRecentGal
           "g0",
           "min-h-[200px] lg:min-h-[240px]",
           "(max-width: 1024px) 100vw, 28vw",
+          placeholderSrcByCellIndex[0],
           cells[0]
             ? {
                 title: cells[0].album?.title?.trim() || cells[0].title || "Album",
@@ -79,6 +120,7 @@ export function AlbumsRecentGallery({ photos, showPlaceholder }: AlbumsRecentGal
           "g1",
           "min-h-[220px] sm:min-h-[260px] lg:min-h-[240px]",
           "(max-width: 1024px) 50vw, 14vw",
+          placeholderSrcByCellIndex[1],
           null,
         )}
         {cell(
@@ -86,6 +128,7 @@ export function AlbumsRecentGallery({ photos, showPlaceholder }: AlbumsRecentGal
           "g2",
           "min-h-[220px] sm:min-h-[260px] lg:min-h-[240px]",
           "(max-width: 1024px) 50vw, 14vw",
+          placeholderSrcByCellIndex[2],
           null,
         )}
         {cell(
@@ -93,6 +136,7 @@ export function AlbumsRecentGallery({ photos, showPlaceholder }: AlbumsRecentGal
           "g3",
           "min-h-[200px] lg:min-h-[240px]",
           "(max-width: 1024px) 100vw, 28vw",
+          placeholderSrcByCellIndex[3],
           cells[3]
             ? {
                 title: cells[3].album?.title?.trim() || cells[3].title || "Album",

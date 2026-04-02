@@ -1,7 +1,8 @@
 "use client";
 
 import { useQuery } from "@apollo/client/react";
-import { BadgeCheck, Loader2, UserRoundPlus, Zap } from "lucide-react";
+import { Loader2, UserRoundPlus, Zap } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   DataTablePaginationSkeleton,
@@ -115,7 +116,7 @@ export function UsersOverview() {
   const statsFailed = Boolean(statsError);
 
   return (
-    <section className="font-inter px-5 py-8 lg:px-7">
+    <section className="font-inter w-full min-w-0 max-w-full px-4 py-6 sm:px-5 sm:py-8 lg:px-7">
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-xs text-[#94a3b8]">
@@ -124,7 +125,7 @@ export function UsersOverview() {
           <h1 className="font-title mt-1.5 text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
             The Directory
           </h1>
-          <p className="mt-2 max-w-3xl text-[16px] leading-relaxed text-[#64748b]">
+          <p className="mt-2 max-w-3xl break-words text-[16px] leading-relaxed text-[#64748b]">
             A curated overview of all registered system architects and contributors.
             Manage permissions, monitor activity, and explore entity relationships.
           </p>
@@ -153,7 +154,7 @@ export function UsersOverview() {
         />
       ) : null}
 
-      <div className="mt-12 mb-6 grid gap-4 lg:grid-cols-3">
+      <div className="mt-8 mb-6 grid gap-4 md:mt-12 lg:grid-cols-3">
         <UsersTopMetricCard
           icon={<UserRoundPlus className="h-4 w-4" strokeWidth={1.9} />}
           title="Total Curators"
@@ -167,7 +168,15 @@ export function UsersOverview() {
           accent="+12.4%"
         />
         <UsersTopMetricCard
-          icon={<BadgeCheck className="h-4 w-4" strokeWidth={1.9} />}
+          icon={
+            <Image
+              src="/users-overview/entity-connections-icon.png"
+              alt=""
+              width={64}
+              height={64}
+              className="h-[28px] w-[28px] object-contain"
+            />
+          }
           title="Entity Connections"
           value={
             statsLoading && entityConnections == null
@@ -197,7 +206,7 @@ export function UsersOverview() {
       />
 
       {!listError ? (
-        <div className="mt-5 overflow-hidden rounded-xl border border-[#dbe3ee] bg-white">
+        <div className="mt-5 w-full min-w-0 overflow-hidden rounded-xl border border-[#dbe3ee] bg-white">
           {isInitialLoading ? (
             <DataTableSkeleton
               columnHeaders={[...USERS_TABLE_HEADERS]}

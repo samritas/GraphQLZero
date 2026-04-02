@@ -18,8 +18,8 @@ export function AlbumsStatCard({
   progressBeside,
 }: AlbumsStatCardProps) {
   const labelClass = labelBlue
-    ? "text-[10px] font-bold uppercase tracking-[0.12em] text-[#0b57d0]"
-    : "text-[10px] font-bold uppercase tracking-[0.12em] text-[#9ca3af]";
+    ? "text-[12px] font-bold uppercase tracking-[0.12em] text-[#0b57d0]"
+    : "text-[12px] font-bold uppercase tracking-[0.12em] text-[#9ca3af]";
 
   const valueClass = valueBlue
     ? "text-[32px] font-bold leading-none tracking-tight text-[#0b57d0]"
@@ -28,7 +28,7 @@ export function AlbumsStatCard({
   const detailClass =
     detailTone === "muted"
       ? "text-sm font-medium text-[#9ca3af]"
-      : "text-sm font-semibold text-[#0b57d0]";
+      : "text-sm font-bold text-[#2563eb]";
 
   if (typeof progressBeside === "number") {
     return (
@@ -48,9 +48,9 @@ export function AlbumsStatCard({
   }
 
   return (
-    <article className="rounded-2xl border border-[#e5e7eb] bg-[#f9fafb] p-5">
+    <article className="rounded-[16px] bg-[#F0F4F7] p-5">
       <p className={labelClass}>{label}</p>
-      <div className="mt-3 flex flex-wrap items-baseline gap-2">
+      <div className="mt-3 flex flex-wrap items-center gap-2">
         <p className={valueClass}>{value}</p>
         {detail ? <span className={detailClass}>{detail}</span> : null}
       </div>

@@ -15,9 +15,11 @@ import {
 import { QueryErrorPanel } from "@/components/ui/query-error-panel";
 import {
   GET_ALBUMS,
+  GET_ALBUMS_OVERVIEW_COHORTS,
   GET_ALBUMS_OVERVIEW_STATS,
   GET_USER_ALBUMS,
   buildAlbumQueryOptions,
+  type AlbumsOverviewCohortsQueryResult,
   type AlbumsOverviewStatsQueryResult,
   type AlbumsPage,
   type AlbumsQueryResult,
@@ -35,7 +37,9 @@ import {
   POSTS_USERS_FILTER_OPTIONS,
 } from "@/lib/constants";
 import {
+  albumsCohortIdGte,
   albumsStoragePercentFromTotals,
+  cohortSharePercent,
   formatAlbumPhotosShort,
 } from "@/lib/albums-display";
 import { getErrorMessage } from "@/lib/get-error-message";
@@ -79,6 +83,27 @@ export function AlbumsOverview() {
     error: statsError,
     refetch: refetchStats,
   } = useQuery<AlbumsOverviewStatsQueryResult>(GET_ALBUMS_OVERVIEW_STATS, {
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const cohortIdGte = useMemo(() => {
+    const min = statsData?.albumIdMin?.data?.[0]?.id;
+    const max = statsData?.albumIdMax?.data?.[0]?.id;
+    if (min == null || max == null) return null;
+    return albumsCohortIdGte(min, max);
+  }, [statsData]);
+
+  const {
+    data: cohortData,
+    loading: cohortLoading,
+    error: cohortError,
+    refetch: refetchCohorts,
+  } = useQuery<AlbumsOverviewCohortsQueryResult>(GET_ALBUMS_OVERVIEW_COHORTS, {
+    variables: {
+      albumIdGte: cohortIdGte ?? "",
+      photoAlbumIdGte: cohortIdGte ?? "",
+    },
+    skip: cohortIdGte == null || Boolean(statsError),
     notifyOnNetworkStatusChange: true,
   });
 
@@ -137,6 +162,7 @@ export function AlbumsOverview() {
   const refetchAll = () => {
     refetchAlbums();
     void refetchStats();
+    void refetchCohorts();
   };
 
   const totalAlbumsCount = statsData?.albums?.meta?.totalCount ?? null;
@@ -154,23 +180,36 @@ export function AlbumsOverview() {
     totalAlbumsCount,
   );
 
+  const recentAlbumsCount = cohortData?.recentAlbums?.meta?.totalCount ?? null;
+  const recentPhotosCount = cohortData?.recentPhotos?.meta?.totalCount ?? null;
+  const cohortKpisReady =
+    cohortIdGte != null &&
+    !statsError &&
+    !cohortError &&
+    !cohortLoading &&
+    !statsLoading;
+  const collectionsSharePct = cohortSharePercent(recentAlbumsCount, totalAlbumsCount);
+  const collectionsHighlight =
+    cohortKpisReady && collectionsSharePct != null ? `+${collectionsSharePct}%` : undefined;
+  const photosHighlight =
+    cohortKpisReady && recentPhotosCount != null ? `↑ ${formatAlbumPhotosShort(recentPhotosCount)}` : undefined;
+
   return (
     <section className="font-inter px-6 py-8 lg:px-8">
-      <div className="flex flex-wrap items-start justify-between gap-6">
-        <div>
-          <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
-            Albums
-          </h1>
-          <p className="mt-2 max-w-2xl text-[16px] leading-relaxed text-[#64748b]">
+      <div>
+        <h1 className="font-title text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
+          Albums
+        </h1>
+        <div className="mt-1 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <p className="font-title max-w-2xl text-[16px] font-normal leading-normal tracking-normal text-[#566166]">
             Curating {headlineTotal} digital collections across the Graphé LZero ecosystem.
           </p>
+          <AlbumsToolbar
+            filterOpen={filterOpen}
+            onToggleFilter={() => setFilterOpen((v) => !v)}
+            isRefetching={isRefetching}
+          />
         </div>
-
-        <AlbumsToolbar
-          filterOpen={filterOpen}
-          onToggleFilter={() => setFilterOpen((v) => !v)}
-          isRefetching={isRefetching}
-        />
       </div>
 
       {error ? (
@@ -185,7 +224,10 @@ export function AlbumsOverview() {
         <QueryErrorPanel
           title="Could not load albums overview"
           message={getErrorMessage(statsError)}
-          onRetry={() => void refetchStats()}
+          onRetry={() => {
+            void refetchStats();
+            void refetchCohorts();
+          }}
         />
       ) : null}
 
@@ -210,6 +252,8 @@ export function AlbumsOverview() {
                 ? totalAlbumsCount.toLocaleString()
                 : "—"
           }
+          detail={collectionsHighlight}
+          detailTone="blue"
         />
         <AlbumsStatCard
           label="Total Photos"
@@ -220,6 +264,8 @@ export function AlbumsOverview() {
                 ? formatAlbumPhotosShort(totalPhotosCount)
                 : "—"
           }
+          detail={photosHighlight}
+          detailTone="blue"
         />
         <AlbumsStatCard
           label="Active Curators"
@@ -284,17 +330,19 @@ export function AlbumsOverview() {
           />
         </div>
       ) : (
-        <AlbumsDataTable
-          rows={rows}
-          totalCount={totalRecords}
-          page={page}
-          pageSize={pageSize}
-          onPageChange={setPage}
-          onPageSizeChange={(next) => {
-            setPageSize(next);
-            setPage(1);
-          }}
-        />
+        <div className="mt-8">
+          <AlbumsDataTable
+            rows={rows}
+            totalCount={totalRecords}
+            page={page}
+            pageSize={pageSize}
+            onPageChange={setPage}
+            onPageSizeChange={(next) => {
+              setPageSize(next);
+              setPage(1);
+            }}
+          />
+        </div>
       )}
 
       <AlbumsRecentGallery

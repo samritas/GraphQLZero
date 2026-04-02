@@ -72,7 +72,7 @@ export function DataTablePagination({
   const canNext = page < totalPages;
 
   return (
-    <div className="flex flex-col gap-4 bg-white px-5 py-4 text-sm text-[#64748b] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-3">
+    <div className="flex flex-col gap-4 bg-white px-4 py-4 text-sm text-[#64748b] md:px-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-3">
       <p className="shrink-0 text-sm text-[#64748b]">
         Showing{" "}
         <span className="font-bold text-[#475569]">
@@ -82,7 +82,7 @@ export function DataTablePagination({
         <span className="font-bold text-[#475569]">{totalLabel}</span> entries
       </p>
 
-      <div className="flex flex-wrap items-center justify-end gap-6">
+      <div className="flex w-full flex-wrap items-center justify-between gap-4 sm:w-auto sm:justify-end sm:gap-6">
         <div className="flex items-center gap-2 sm:gap-1">
           <button
             type="button"

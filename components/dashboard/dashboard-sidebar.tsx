@@ -1,5 +1,6 @@
 "use client";
 
+import { Brand } from "@/components/brand";
 import Link from "next/link";
 import {
   Cpu,
@@ -30,26 +31,6 @@ const navItems: { label: string; href: string; icon: LucideIcon }[] = [
 function navItemIsActive(pathname: string, href: string) {
   if (href === "/dashboard") return pathname === "/dashboard";
   return pathname === href || pathname.startsWith(`${href}/`);
-}
-
-function Brand() {
-  return (
-    <div className="border-b border-[#1e293b] px-4 py-4">
-      <div className="flex items-center gap-3">
-        <div className="grid h-8 w-8 place-items-center rounded-md bg-[#2563eb]">
-          <Cpu className="h-4 w-4 text-white" strokeWidth={2} aria-hidden />
-        </div>
-        <div>
-          <p className="text-sm font-bold leading-tight text-white">
-            GraphQLZero
-          </p>
-          <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-[#94a3b8]">
-            Admin Console
-          </p>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 function SidebarFooter({ onNavigate }: { onNavigate?: () => void }) {
@@ -112,7 +93,7 @@ export function DashboardSidebar({
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
-      <Brand />
+      <Brand variant="sidebar" />
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4" aria-label="Dashboard">
         {navItems.map((item) => {
           const active = navItemIsActive(pathname, item.href);
@@ -129,11 +110,11 @@ export function DashboardSidebar({
               }`}
             >
               <Icon
-                className={`h-4 w-4 shrink-0 ${active ? "text-white" : "text-[#94a3b8]"}`}
+                className={`h-[15px] w-[15px] shrink-0 ${active ? "text-white" : "text-[#94a3b8]"}`}
                 strokeWidth={1.5}
                 aria-hidden
               />
-              <span>{item.label}</span>
+              <span className="text-[14px] font-medium">{item.label}</span>
               {active ? (
                 <span
                   className="absolute right-0 top-1/2 h-[60%] w-[3px] -translate-y-1/2 rounded-l-sm bg-[#2563eb]"

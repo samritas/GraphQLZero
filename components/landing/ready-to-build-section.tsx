@@ -14,7 +14,7 @@ export function ReadyToBuildSection() {
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/dashboard"
+              href="/dashboard/posts"
               className="inline-flex h-14 w-full max-w-[300px] items-center justify-center rounded-[16px] bg-[#0053DB] px-10 text-[20px] font-semibold text-white shadow-[0_10px_24px_rgba(11,87,208,0.28)] transition hover:bg-[#0a4dc0] sm:w-[300px]"
             >
               Go to Dashboard

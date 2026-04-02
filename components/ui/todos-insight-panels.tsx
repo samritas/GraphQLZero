@@ -1,5 +1,5 @@
 import { ArrowRight, CircleCheck, Sparkles } from "lucide-react";
-import { TodosHealthWatermark } from "@/components/ui/todos-health-watermark";
+import { TodosInsightChartPanel } from "@/components/ui/todos-insight-chart-panel";
 
 export type TodosInsightPanelsProps = {
   statsLoading: boolean;
@@ -35,30 +35,35 @@ export function TodosInsightPanels({
 
   return (
     <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_minmax(17rem,22rem)] lg:items-stretch">
-      <div className="relative overflow-hidden rounded-2xl border border-[#e2e8f0] bg-gradient-to-br from-[#f8fafc] via-white to-[#f1f5f9] p-6 shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:p-8">
-        <TodosHealthWatermark />
-        <div className="relative z-[1] max-w-lg">
-          <h3 className="text-lg font-bold tracking-tight text-[#1f2937] sm:text-xl">
-            System Health & Latency
-          </h3>
-          <div className="mt-6 flex flex-wrap gap-10 sm:gap-14">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#94a3b8]">
-                Avg. response
-              </p>
-              <p className="mt-2 text-3xl font-bold tracking-tight text-[#2563eb] sm:text-[2rem]">
-                {responseDisplay}
-              </p>
-            </div>
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#94a3b8]">
-                Uptime
-              </p>
-              <p className="mt-2 text-3xl font-bold tracking-tight text-[#1f2937] sm:text-[2rem]">
-                {completionDisplay}
-              </p>
+      <div className="flex min-h-[220px] flex-col overflow-hidden rounded-2xl border border-[#e2e8f0] shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:min-h-[200px] lg:min-h-[9.5rem] lg:flex-row">
+        <div className="relative flex min-h-[180px] flex-1 flex-col justify-center overflow-hidden bg-[#F0F4F7] px-6 py-7 sm:min-h-0 sm:px-8 sm:py-8 lg:min-w-0 lg:basis-1/2 lg:max-w-[55%]">
+          <div className="relative z-[1] max-w-lg">
+            <h3 className="text-lg font-bold tracking-tight text-[#1f2937] sm:text-xl">
+              System Health & Latency
+            </h3>
+            <div className="mt-5 flex flex-wrap gap-8 sm:mt-6 sm:gap-12 lg:gap-14">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#94a3b8]">
+                  Avg. response
+                </p>
+                <p className="mt-2 text-3xl font-bold tracking-tight text-[#1d4ed8] sm:text-[2rem]">
+                  {responseDisplay}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#94a3b8]">
+                  Uptime
+                </p>
+                <p className="mt-2 text-3xl font-bold tracking-tight text-[#111827] sm:text-[2rem]">
+                  {completionDisplay}
+                </p>
+              </div>
             </div>
           </div>
+        </div>
+
+        <div className="relative min-h-[10rem] w-full shrink-0 overflow-hidden bg-[#d1d5db] lg:min-h-0 lg:flex-1 lg:basis-1/2">
+          <TodosInsightChartPanel />
         </div>
       </div>
 

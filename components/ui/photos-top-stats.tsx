@@ -1,8 +1,10 @@
 import { ImageIcon } from "lucide-react";
+import Image from "next/image";
 import {
   albumsStoragePercentFromTotals,
   formatAlbumPhotosShort,
 } from "@/lib/albums-display";
+import { USER_TABLE_AVATAR_PLACEHOLDERS } from "@/lib/users-directory";
 
 export type PhotosTopStatsProps = {
   statsLoading: boolean;
@@ -75,15 +77,27 @@ export function PhotosTopStats({ statsLoading, totalPhotos, totalAlbums }: Photo
             <p className="mt-1 text-[30px] font-bold leading-none text-[#1f2937]">{cdnLabel}</p>
           </div>
           <div className="flex items-center justify-end pl-4">
-            <div className="flex -space-x-2">
-              {["#f2c6ae", "#f3d4be", "#c58c55"].map((c) => (
+            <div className="flex items-center">
+              {USER_TABLE_AVATAR_PLACEHOLDERS.map((src, i) => (
                 <span
-                  key={c}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#f8fafc]"
-                  style={{ backgroundColor: c }}
-                />
+                  key={src}
+                  className="relative inline-flex h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-white bg-[#eef2f6] shadow-[0_0_0_1px_rgba(226,232,240,0.8)]"
+                  style={{ zIndex: i + 1, marginLeft: i === 0 ? 0 : -10 }}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="h-full w-full object-cover"
+                    unoptimized
+                  />
+                </span>
               ))}
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#f8fafc] bg-[#cbd5e1] text-[11px] font-semibold text-[#475569]">
+              <span
+                className="relative inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#dbeafe] text-[11px] font-semibold text-[#475569] shadow-[0_0_0_1px_rgba(226,232,240,0.8)]"
+                style={{ zIndex: 4, marginLeft: -10 }}
+              >
                 +4
               </span>
             </div>

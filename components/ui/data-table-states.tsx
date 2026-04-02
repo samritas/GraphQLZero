@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 const headerLabelClass =
   "text-[10px] font-bold uppercase tracking-[0.1em] text-[#64748b]";
@@ -31,6 +31,9 @@ export function DataTableSkeleton({
   "aria-label": ariaLabel = "Loading table",
 }: DataTableSkeletonProps) {
   const centerSet = new Set(centerHeaderIndices);
+  const gridStyle = {
+    ["--data-table-skel-cols"]: gridTemplateColumns,
+  } as CSSProperties;
 
   return (
     <div
@@ -41,8 +44,8 @@ export function DataTableSkeleton({
       aria-label={ariaLabel}
     >
       <div
-        className="grid bg-[#e4ebf1] px-5 py-3.5"
-        style={{ gridTemplateColumns }}
+        className="hidden bg-[#e4ebf1] px-5 py-3.5 md:grid md:[grid-template-columns:var(--data-table-skel-cols)]"
+        style={gridStyle}
       >
         {columnHeaders.map((label, i) => (
           <p
@@ -58,8 +61,8 @@ export function DataTableSkeleton({
         {Array.from({ length: rowCount }, (_, rowIdx) => (
           <div
             key={rowIdx}
-            className="grid items-center px-5 py-5"
-            style={{ gridTemplateColumns }}
+            className="grid max-md:grid-cols-1 max-md:gap-3 md:gap-0 md:[grid-template-columns:var(--data-table-skel-cols)] items-center px-5 py-5"
+            style={gridStyle}
           >
             {columnHeaders.map((_, colIdx) => (
               <div

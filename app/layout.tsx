@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Manrope } from "next/font/google";
+import { BRAND_LOGO_SRC } from "@/components/brand";
 import { ApolloClientProvider } from "@/components/providers/apollo-provider";
 import "@/styles/globals.css";
 
@@ -26,6 +27,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "GraphQL Zero",
   description: "Clean Next.js App Router starter with Tailwind CSS",
+  icons: {
+    icon: [{ url: BRAND_LOGO_SRC, type: "image/png", sizes: "32x32" }],
+    apple: BRAND_LOGO_SRC,
+  },
 };
 
 export default function RootLayout({

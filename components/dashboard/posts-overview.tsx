@@ -6,9 +6,11 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   buildPostQueryOptions,
   GET_POSTS,
+  GET_POSTS_STATS_NETWORK,
   GET_USER_POSTS,
   type PostsPage,
   type PostsQueryResult,
+  type PostsStatsNetworkResult,
   type UserPostsQueryResult,
 } from "@/graphql/queries/posts";
 import {
@@ -79,6 +81,9 @@ export function PostsOverview() {
   );
   const authors = usersData?.users?.data ?? [];
 
+  const { data: networkStats, loading: networkStatsLoading } =
+    useQuery<PostsStatsNetworkResult>(GET_POSTS_STATS_NETWORK);
+
   const allPostsQuery = useQuery<PostsQueryResult>(GET_POSTS, {
     variables: { options: postOptions },
     notifyOnNetworkStatusChange: true,
@@ -116,6 +121,36 @@ export function PostsOverview() {
 
   const totalRecords =
     postsPage?.meta?.totalCount ?? lastTotalCountRef.current;
+
+  const filtersActive = Boolean(debouncedTitleQuery || authorUserId);
+  const trendNote = useMemo(() => {
+    const globalPosts = networkStats?.posts?.meta?.totalCount;
+    const globalComments = networkStats?.comments?.meta?.totalCount;
+    if (globalPosts == null || globalPosts === 0) return null;
+    if (filtersActive) {
+      if (totalRecords == null) return null;
+      const pct = Math.round(
+        Math.min(100, Math.max(0, (totalRecords / globalPosts) * 100)),
+      );
+      return `${pct}% of ${globalPosts.toLocaleString()} posts match filters`;
+    }
+    if (globalComments != null) {
+      const avg = globalComments / globalPosts;
+      return `${avg.toFixed(1)} comments per post · ${globalComments.toLocaleString()} total`;
+    }
+    return null;
+  }, [networkStats, filtersActive, totalRecords]);
+
+  const loading = activeQuery.loading;
+  const error = activeQuery.error;
+  const trendLineLoading =
+    networkStatsLoading ||
+    (filtersActive &&
+      loading &&
+      totalRecords == null &&
+      !error &&
+      !userNotFound);
+
   const totalPages =
     totalRecords != null && totalRecords > 0
       ? Math.max(1, Math.ceil(totalRecords / pageSize))
@@ -126,8 +161,6 @@ export function PostsOverview() {
     setPage((p) => Math.min(Math.max(1, p), totalPages));
   }, [totalPages, totalRecords]);
 
-  const loading = activeQuery.loading;
-  const error = activeQuery.error;
   /** First paint only (page 1, no rows yet). Avoid treating page 2+ refetches as “initial”. */
   const isInitialLoading = loading && !postsPage && page === 1;
   const isPagingWithoutRows = loading && !postsPage && page > 1;
@@ -180,6 +213,8 @@ export function PostsOverview() {
           <StatsCard
             totalRecords={totalRecords}
             showPlaceholder={isInitialLoading || isPagingWithoutRows}
+            trendNote={trendNote ?? undefined}
+            trendLoading={trendLineLoading}
           />
         </div>
       </div>

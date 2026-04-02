@@ -37,7 +37,7 @@ export function DashboardTopbar({
   mobileNavOpen?: boolean;
 } = {}) {
   return (
-    <header className="sticky top-0 z-10 shrink-0 border-b border-[#e2e8f0] bg-[#F0F4F7] min-h-14 py-2 lg:h-16 lg:min-h-0 lg:py-0">
+    <header className="sticky top-0 z-20 shrink-0 border-b border-[#e2e8f0] bg-[#F0F4F7] min-h-14 py-2 lg:h-16 lg:min-h-0 lg:py-0">
       <div className="flex w-full min-w-0 items-center gap-3 px-3 sm:gap-6 sm:px-5 lg:h-full lg:justify-between lg:px-7">
         {onMenuClick ? (
           <button

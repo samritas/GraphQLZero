@@ -11,7 +11,7 @@ export const GET_ALBUMS = gql`
           id
           name
         }
-        photos(options: { paginate: { page: 1, limit: 1 } }) {
+        photos(options: { paginate: { page: 1, limit: 2 } }) {
           meta {
             totalCount
           }
@@ -41,7 +41,7 @@ export const GET_USER_ALBUMS = gql`
             id
             name
           }
-          photos(options: { paginate: { page: 1, limit: 1 } }) {
+          photos(options: { paginate: { page: 1, limit: 2 } }) {
             meta {
               totalCount
             }
@@ -91,6 +91,42 @@ export const GET_ALBUMS_OVERVIEW_STATS = gql`
         }
       }
     }
+    albumIdMin: albums(options: { sort: [{ field: "id", order: ASC }], paginate: { page: 1, limit: 1 } }) {
+      data {
+        id
+      }
+    }
+    albumIdMax: albums(options: { sort: [{ field: "id", order: DESC }], paginate: { page: 1, limit: 1 } }) {
+      data {
+        id
+      }
+    }
+  }
+`;
+
+/** Newest-ID cohort totals; variables come from min/max ids in {@link GET_ALBUMS_OVERVIEW_STATS}. */
+export const GET_ALBUMS_OVERVIEW_COHORTS = gql`
+  query GetAlbumsOverviewCohorts($albumIdGte: String!, $photoAlbumIdGte: String!) {
+    recentAlbums: albums(
+      options: {
+        operators: [{ kind: GTE, field: "id", value: $albumIdGte }]
+        paginate: { page: 1, limit: 1 }
+      }
+    ) {
+      meta {
+        totalCount
+      }
+    }
+    recentPhotos: photos(
+      options: {
+        operators: [{ kind: GTE, field: "albumId", value: $photoAlbumIdGte }]
+        paginate: { page: 1, limit: 1 }
+      }
+    ) {
+      meta {
+        totalCount
+      }
+    }
   }
 `;
 
@@ -137,6 +173,13 @@ export type AlbumsOverviewStatsQueryResult = {
   photos: { meta: { totalCount: number } | null } | null;
   users: { meta: { totalCount: number } | null } | null;
   galleryPhotos: { data: GalleryPhotoRecord[] } | null;
+  albumIdMin: { data: Array<{ id: string }> } | null;
+  albumIdMax: { data: Array<{ id: string }> } | null;
+};
+
+export type AlbumsOverviewCohortsQueryResult = {
+  recentAlbums: { meta: { totalCount: number } | null } | null;
+  recentPhotos: { meta: { totalCount: number } | null } | null;
 };
 
 export type AlbumPageQueryOptions = {

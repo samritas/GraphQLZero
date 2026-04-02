@@ -51,6 +51,27 @@ export const GET_POST = gql`
   }
 `;
 
+/** Global post and comment totals for dashboard stats copy (meta-only, one row). */
+export const GET_POSTS_STATS_NETWORK = gql`
+  query PostsStatsNetwork {
+    posts(options: { paginate: { page: 1, limit: 1 } }) {
+      meta {
+        totalCount
+      }
+    }
+    comments(options: { paginate: { page: 1, limit: 1 } }) {
+      meta {
+        totalCount
+      }
+    }
+  }
+`;
+
+export type PostsStatsNetworkResult = {
+  posts: { meta: { totalCount: number } | null };
+  comments: { meta: { totalCount: number } | null };
+};
+
 /** Last 7 posts (API order) with comment totals for the posting-frequency chart. */
 export const GET_POSTING_FREQUENCY = gql`
   query GetPostingFrequency {
