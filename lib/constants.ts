@@ -144,3 +144,28 @@ export const ALBUMS_TABLE_GRID =
 export const ALBUMS_DEFAULT_PAGE_SIZE = POSTS_DEFAULT_PAGE_SIZE;
 
 export const ALBUMS_SEARCH_DEBOUNCE_MS = POSTS_TITLE_SEARCH_DEBOUNCE_MS;
+
+/** Photos library table (`photos-overview` grid). */
+export const PHOTOS_TABLE_HEADERS = [
+  "ID",
+  "Preview",
+  "Title",
+  "URL",
+  "Album ID",
+  "",
+] as const;
+
+export const PHOTOS_TABLE_GRID =
+  "64px 52px minmax(0,1.45fr) minmax(0,1.15fr) 100px 40px" as const;
+
+/** Header column indices with `text-center` (matches `DataTableSkeleton` for photos). */
+export const PHOTOS_TABLE_CENTER_HEADER_INDICES = [4, 5] as const;
+
+export const PHOTOS_DEFAULT_PAGE_SIZE = POSTS_DEFAULT_PAGE_SIZE;
+
+export const PHOTOS_SEARCH_DEBOUNCE_MS = POSTS_TITLE_SEARCH_DEBOUNCE_MS;
+
+/** Album titles for the photos toolbar filter. */
+export const PHOTOS_ALBUM_FILTER_OPTIONS = {
+  paginate: { page: 1, limit: 100 },
+} as const;
