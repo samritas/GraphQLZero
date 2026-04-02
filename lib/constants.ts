@@ -127,3 +127,20 @@ export type CommentsDatePreset =
   (typeof COMMENTS_DATE_RANGE_OPTIONS)[number]["id"];
 
 export type CommentsInboxTab = "all" | "unread" | "flagged";
+
+/** Albums overview table (`albums-overview` grid). */
+export const ALBUMS_TABLE_HEADERS = [
+  "ID",
+  "Preview",
+  "Album Title",
+  "Owner / User",
+  "Quantity",
+  "Actions",
+] as const;
+
+export const ALBUMS_TABLE_GRID =
+  "78px 120px minmax(0,1.8fr) minmax(0,1.3fr) 88px 90px" as const;
+
+export const ALBUMS_DEFAULT_PAGE_SIZE = POSTS_DEFAULT_PAGE_SIZE;
+
+export const ALBUMS_SEARCH_DEBOUNCE_MS = POSTS_TITLE_SEARCH_DEBOUNCE_MS;
