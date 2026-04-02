@@ -5,15 +5,15 @@ export function CodeInSecondsSection() {
         <div className="grid overflow-hidden rounded-[30px] bg-[#dbe2e9] lg:grid-cols-[1.05fr_1fr]">
           <div className="flex items-center px-8 py-12 md:px-12 md:py-16 lg:px-14">
             <div className="max-w-[470px]">
-              <h3 className="text-3xl font-bold tracking-[-0.02em] text-[#2a3440] md:text-[44px]">
+              <h3 className="text-3xl font-bold tracking-[-0.02em] text-[#2A3439] md:text-[36px]">
                 Code it in seconds.
               </h3>
-              <p className="mt-6 text-lg leading-[1.55] text-[#66758a] md:text-[24px]">
+              <p className="mt-6 text-lg leading-[1.55] text-[#566166] md:text-[18px]">
                 Our GraphQL API is intuitive and follows best practices. Fetch
                 exactly what you need, nothing more.
               </p>
               <div className="mt-8 flex items-start gap-3">
-                <span className="mt-0.5 grid h-6 w-6 place-items-center rounded-full bg-[#d9e5ff] text-[#1d67db]">
+                <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-md bg-[#d9e5ff] text-[#0053DB]">
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 24 24"
@@ -29,10 +29,10 @@ export function CodeInSecondsSection() {
                   </svg>
                 </span>
                 <div>
-                  <p className="text-lg font-semibold text-[#2e3a48] md:text-[24px]">
+                  <p className="text-lg font-semibold text-[#2A3439] md:text-[16px]">
                     Type-Safe schemas
                   </p>
-                  <p className="text-sm text-[#67778e] md:text-[18px]">
+                  <p className="text-sm text-[#566166] md:text-[14px]">
                     Compatible with Apollo, Relay, and urql.
                   </p>
                 </div>

@@ -78,10 +78,10 @@ function CodeWindow() {
           </svg>
         </div>
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500">
             Response Time
           </p>
-          <p className="text-[34px] font-bold leading-none text-slate-900">12ms</p>
+          <p className="text-[20px] font-bold leading-none text-slate-900">12ms</p>
         </div>
       </div>
     </div>
@@ -90,27 +90,30 @@ function CodeWindow() {
 
 export function HeroSection() {
   return (
-    <main className="mx-auto grid w-full max-w-[1500px] grid-cols-1 items-center gap-16 px-6 pb-24 pt-24 md:px-10 lg:grid-cols-[1.05fr_1fr] lg:px-14">
-      <section>
-        <p className="mb-10 inline-block rounded bg-[#dce5fb] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[#0b57d0]">
-          The Developer&apos;s Choice
-        </p>
-        <h1 className="max-w-[680px] text-4xl font-bold leading-[1.08] tracking-[-0.03em] text-[#1f2937] md:text-5xl">
-          The API for your <span className="text-[#0b57d0]">next big idea.</span>
-        </h1>
-        <p className="mt-8 max-w-[720px] text-lg leading-[1.5] text-[#5e6d82] md:text-xl">
-          Access mock data for users, posts, comments, albums, photos, and todos
-          through a powerful GraphQL endpoint. Zero setup, infinite scale.
-        </p>
-        <div className="mt-14 flex flex-wrap items-center gap-4">
-          <MainButton href="/dashboard">Go to Dashboard</MainButton>
-          <MainButton variant="secondary">Read Docs</MainButton>
-        </div>
-      </section>
+    <section className="bg-[#F0F4F7]">
+      <main className="mx-auto grid w-full max-w-[1500px] grid-cols-1 items-center gap-16 px-6 pb-24 pt-24 md:px-10 lg:grid-cols-[1.05fr_1fr] lg:px-14">
+        <section>
+          <p className="mb-10 inline-block rounded bg-[#dce5fb] px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[#0b57d0]">
+            The Developer&apos;s Choice
+          </p>
+          <h1 className="max-w-[680px] text-[72px] font-bold leading-[1.08] tracking-[-0.03em] text-[#1f2937] md:text-[72px]">
+            The API for your{" "}
+            <span className="text-[#0b57d0]">next big idea.</span>
+          </h1>
+          <p className="mt-8 max-w-[720px] text-[20px] leading-[1.5] text-[#5e6d82] md:text-xl">
+            Access mock data for users, posts, comments, albums, photos, and todos
+            through a powerful GraphQL endpoint. Zero setup, infinite scale.
+          </p>
+          <div className="mt-14 flex flex-wrap items-center gap-4">
+            <MainButton href="/dashboard">Go to Dashboard</MainButton>
+            <MainButton variant="secondary">Read Docs</MainButton>
+          </div>
+        </section>
 
-      <section className="flex justify-end">
-        <CodeWindow />
-      </section>
-    </main>
+        <section className="flex justify-end">
+          <CodeWindow />
+        </section>
+      </main>
+    </section>
   );
 }

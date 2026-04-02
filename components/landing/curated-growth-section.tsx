@@ -1,11 +1,13 @@
+import Image from "next/image";
+
 function SectionIcon({ type }: { type: "network" | "chip" }) {
   if (type === "chip") {
     return (
-      <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#cfdaf0] text-[#355eab]">
+      <div className="grid h-14 w-14 place-items-center rounded-2xl bg-[#cfdaf0] text-[#355eab]">
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"
-          className="h-5 w-5"
+          className="h-7 w-7"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.8"
@@ -20,34 +22,24 @@ function SectionIcon({ type }: { type: "network" | "chip" }) {
   }
 
   return (
-    <div className="grid h-11 w-11 place-items-center rounded-xl bg-[#cfdaf0] text-[#2f62c8]">
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        className="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="7" cy="7" r="1.5" />
-        <circle cx="17" cy="7" r="1.5" />
-        <circle cx="12" cy="12" r="1.5" />
-        <circle cx="7" cy="17" r="1.5" />
-        <circle cx="17" cy="17" r="1.5" />
-        <path d="M8.5 7h7M7.8 8.3l3.2 2.5M16.2 8.3l-3.2 2.5M7.8 15.7l3.2-2.5M16.2 15.7l-3.2-2.5M8.5 17h7" />
-      </svg>
+    <div className="grid h-14 w-14 place-items-center rounded-2xl bg-[#cfdaf0] text-[#2f62c8]">
+      <Image
+        src="/network-icon.png"
+        alt="Network"
+        width={20}
+        height={20}
+        className="h-7 w-7"
+      />
     </div>
   );
 }
 
 export function CuratedGrowthSection() {
   return (
-    <section className="w-full pb-28">
+    <section className="w-full pb-28 bg-[#F0F4F7]">
       <div className="w-full bg-[#dce1e7]">
         <div className="mx-auto w-full max-w-[1500px] px-6 py-8 md:px-10 md:py-10 lg:px-14">
-          <h2 className="text-xl font-bold tracking-[-0.02em] text-[#2a3440] md:text-[28px]">
+          <h2 className="text-xl font-bold tracking-[-0.02em] text-[#2A3439] md:text-[36px]">
             Engineered for Curated Growth.
           </h2>
           <p className="mt-4 max-w-[760px] text-sm leading-relaxed text-[#627084] md:text-base">
@@ -56,7 +48,7 @@ export function CuratedGrowthSection() {
           </p>
 
           <div className="mt-10 grid gap-4 lg:grid-cols-[2fr_1fr]">
-            <article className="rounded-[26px] bg-[#eef1f5] p-7 md:p-10">
+            <article className="rounded-[26px] bg-[#FFFFFF] p-7 md:p-10">
               <SectionIcon type="network" />
               <h3 className="mt-6 text-2xl font-bold tracking-[-0.02em] text-[#2b3541] md:text-[30px]">
                 Interconnected Data (Relational)
@@ -69,12 +61,12 @@ export function CuratedGrowthSection() {
               <div className="mt-8 h-[145px] rounded-lg bg-[linear-gradient(120deg,#e8edf2_0%,#edf2f7_55%,#e7edf3_100%)]" />
             </article>
 
-            <article className="rounded-[26px] bg-[#eef1f5] p-7 md:p-10">
+            <article className="rounded-[26px] bg-[#FFFFFF] p-7 md:p-10">
               <SectionIcon type="chip" />
               <h3 className="mt-6 text-2xl font-bold tracking-[-0.02em] text-[#2b3541] md:text-[30px]">
                 6 Real-time Entities
               </h3>
-              <ul className="mt-6 space-y-3 text-base text-[#556379] md:text-[18px]">
+              <ul className="mt-6 space-y-3 text-base text-[#556379] md:text-[14px]">
                 <li className="flex items-center gap-3">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#2f62c8]" />
                   Users &amp; Posts
@@ -93,11 +85,11 @@ export function CuratedGrowthSection() {
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <article className="rounded-[22px] bg-[#030b14] p-6 md:p-8">
-              <div className="grid h-10 w-10 place-items-center rounded-lg text-[#e6efff]">
+              <div className="grid h-14 w-14 place-items-center rounded-2xl text-[#e6efff]">
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
-                  className="h-5 w-5"
+                  className="h-7 w-7"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.9"
@@ -118,12 +110,12 @@ export function CuratedGrowthSection() {
               </p>
             </article>
 
-            <article className="rounded-[22px] bg-[#eef1f5] p-6 md:p-8">
-              <div className="grid h-10 w-10 place-items-center rounded-lg text-[#1d67db]">
+            <article className="rounded-[22px] bg-[#FFFFFF] p-6 md:p-8">
+              <div className="grid h-14 w-14 place-items-center rounded-2xl text-[#1d67db]">
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
-                  className="h-5 w-5"
+                  className="h-7 w-7"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.9"
