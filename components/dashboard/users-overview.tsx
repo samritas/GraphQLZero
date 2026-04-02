@@ -1,280 +1,185 @@
-import { BadgeCheck, Bot, ChevronLeft, ChevronRight, Filter, Globe, Mail, Phone, Printer, Sparkles, UserRoundPlus, Zap } from "lucide-react";
+"use client";
 
-type CuratorRow = {
-  id: string;
-  name: string;
-  subtitle: string;
-  email: string;
-  phone: string;
-  website: string;
-  affiliation: string;
-  locale: string;
-  posts: string;
-  albums: string;
-  avatarBg: string;
-};
-
-const curatorRows: CuratorRow[] = [
-  {
-    id: "#101",
-    name: "Leanne Graham",
-    subtitle: "Bret",
-    email: "Sincere@april.biz",
-    phone: "1-770-736-8031",
-    website: "hildegard.org",
-    affiliation: "Romaguera-Crona",
-    locale: "Gwenborough",
-    posts: "10",
-    albums: "4",
-    avatarBg: "from-[#f7d4c7] to-[#8b5e3b]",
-  },
-  {
-    id: "#102",
-    name: "Ervin Howell",
-    subtitle: "Antonette",
-    email: "Shanna@melissa.tv",
-    phone: "010-692-6593",
-    website: "anastasia.net",
-    affiliation: "Deckow-Crist",
-    locale: "Wisokyburgh",
-    posts: "12",
-    albums: "8",
-    avatarBg: "from-[#f6c85b] to-[#5a3a1f]",
-  },
-  {
-    id: "#103",
-    name: "Clementine Bauch",
-    subtitle: "Samantha",
-    email: "Nathan@yesenia.net",
-    phone: "1-463-123-4447",
-    website: "ramiro.info",
-    affiliation: "Romaguera-Jacobson",
-    locale: "McKenziehaven",
-    posts: "8",
-    albums: "3",
-    avatarBg: "from-[#f8d7c8] to-[#6b4a33]",
-  },
-];
-
-function TopMetricCard({
-  icon,
-  title,
-  value,
-  accent,
-  helper,
-  dark = false,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  value: string;
-  accent?: string;
-  helper?: string;
-  dark?: boolean;
-}) {
-  return (
-    <article
-      className={
-        dark
-          ? "relative overflow-hidden rounded-lg bg-[#0f4dbd] px-7 py-6 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
-          : "rounded-lg border border-[#edf2f7] bg-[#fbfdff] px-7 py-6"
-      }
-    >
-      <div className="flex items-start justify-between">
-        <span
-          className={
-            dark
-              ? "inline-flex h-9 w-9 items-center justify-center rounded-md bg-white/12 text-white"
-              : "inline-flex h-9 w-9 items-center justify-center rounded-md bg-[#eef2ff] text-[#2563eb]"
-          }
-        >
-          {icon}
-        </span>
-        {accent ? (
-          <span
-            className={
-              dark
-                ? "rounded-md bg-white/12 px-2.5 py-1 text-[11px] font-semibold text-white/85"
-                : "rounded-md bg-[#eef2ff] px-2.5 py-1 text-[11px] font-semibold text-[#2563eb]"
-            }
-          >
-            {accent}
-          </span>
-        ) : null}
-      </div>
-      <p className={dark ? "mt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#bfdbfe]" : "mt-5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#6b7280]"}>
-        {title}
-      </p>
-      <p className={dark ? "mt-1 text-[38px] font-bold leading-none tracking-tight" : "mt-1 text-[38px] font-bold leading-none tracking-tight text-[#1f2937]"}>
-        {value}
-      </p>
-      {helper ? <p className={dark ? "mt-0.5 text-xs text-[#dbeafe]" : "mt-0.5 text-xs text-[#64748b]"}>{helper}</p> : null}
-
-      {dark ? (
-        <>
-          <Sparkles className="absolute bottom-9 right-20 h-5 w-5 text-white/20" />
-          <Sparkles className="absolute bottom-12 right-8 h-7 w-7 text-white/20" />
-          <Bot className="absolute -bottom-2 right-3 h-12 w-12 text-white/20" />
-        </>
-      ) : null}
-    </article>
-  );
-}
-
-function FiltersToolbar() {
-  return (
-    <div className="mt-6 flex items-center justify-between rounded-lg bg-[#f1f5f9] px-3 py-2.5">
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          className="inline-flex items-center gap-1.5 rounded-md border border-[#e5e7eb] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#374151]"
-        >
-          <Filter className="h-3 w-3" strokeWidth={1.75} />
-          Advanced Filters
-        </button>
-        {["All Roles", "Admins", "Editors"].map((role, idx) => (
-          <button
-            key={role}
-            type="button"
-            className={`rounded-full px-3 py-1 text-[9px] font-bold uppercase tracking-[0.06em] ${
-              idx === 0 ? "bg-[#dbeafe] text-[#2563eb]" : "bg-[#dbe3ea] text-[#64748b]"
-            }`}
-          >
-            {role}
-          </button>
-        ))}
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="text-[11px] text-[#6b7280]">Export:</span>
-        <button type="button" className="rounded border border-[#cbd5e1] bg-white px-1.5 py-0.5 text-[8px] font-bold text-[#6b7280]">
-          CSV
-        </button>
-        <button type="button" className="text-[#4b5563]" aria-label="Print table">
-          <Printer className="h-4 w-4" strokeWidth={1.8} />
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function CuratorsTable() {
-  return (
-    <div className="mt-5 overflow-hidden rounded-xl border border-[#dbe3ee] bg-white">
-      <div className="grid grid-cols-[56px_1.2fr_1.15fr_0.75fr_1fr_0.8fr] bg-[#eef2f6] px-3 py-3.5">
-        {["ID", "Curator / Username", "Contact Points", "Website", "Affiliation & Locale", "Engagement"].map((header) => (
-          <p key={header} className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#6b7280]">
-            {header}
-          </p>
-        ))}
-      </div>
-
-      {curatorRows.map((row, index) => (
-        <div
-          key={row.id}
-          className={`grid grid-cols-[56px_1.2fr_1.15fr_0.75fr_1fr_0.8fr] items-center px-3 py-4 ${
-            index === curatorRows.length - 1 ? "" : "border-b border-[#edf2f7]"
-          }`}
-        >
-          <p className="text-[12px] font-semibold text-[#2563eb]">{row.id}</p>
-          <div className="flex items-center gap-2.5">
-            <span className={`h-8 w-8 rounded-md bg-gradient-to-br ${row.avatarBg}`} />
-            <div>
-              <p className="text-[14px] font-bold leading-[1.2] text-[#1f2937]">{row.name}</p>
-              <p className="mt-0.5 text-[11px] text-[#6b7280]">{row.subtitle}</p>
-            </div>
-          </div>
-          <div>
-            <p className="flex items-center gap-1.5 text-[12px] text-[#374151]">
-              <Mail className="h-3 w-3 text-[#6b7280]" strokeWidth={1.8} />
-              {row.email}
-            </p>
-            <p className="mt-1 flex items-center gap-1.5 text-[11px] text-[#6b7280]">
-              <Phone className="h-3 w-3 text-[#6b7280]" strokeWidth={1.8} />
-              {row.phone}
-            </p>
-          </div>
-          <a href="#" className="text-[12px] text-[#2563eb] hover:underline">
-            {row.website}
-          </a>
-          <div>
-            <p className="text-[14px] font-semibold leading-[1.2] text-[#374151]">{row.affiliation}</p>
-            <p className="mt-0.5 flex items-center gap-1 text-[11px] text-[#6b7280]">
-              <Globe className="h-3 w-3 text-[#6b7280]" strokeWidth={1.8} />
-              {row.locale}
-            </p>
-          </div>
-          <div className="flex items-center gap-6">
-            <div>
-              <p className="text-[14px] font-bold leading-none text-[#1f2937]">{row.posts}</p>
-              <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.1em] text-[#6b7280]">
-                Posts
-              </p>
-            </div>
-            <div>
-              <p className="text-[14px] font-bold leading-none text-[#1f2937]">{row.albums}</p>
-              <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.1em] text-[#6b7280]">
-                Albums
-              </p>
-            </div>
-          </div>
-        </div>
-      ))}
-
-      <div className="flex items-center justify-between border-t border-[#edf2f7] bg-white px-3 py-4">
-        <p className="text-[13px] text-[#4b5563]">Showing 1-10 of 1,284 curators</p>
-        <div className="flex items-center gap-2">
-          <button type="button" className="px-1 text-[#cbd5e1]">
-            <ChevronLeft className="h-3.5 w-3.5" />
-          </button>
-          <button type="button" className="h-7 w-7 rounded-md bg-[#0b57d0] text-[12px] font-bold text-white">
-            1
-          </button>
-          <button type="button" className="h-7 w-7 text-[12px] font-semibold text-[#4b5563]">
-            2
-          </button>
-          <button type="button" className="h-7 w-7 text-[12px] font-semibold text-[#4b5563]">
-            3
-          </button>
-          <span className="px-1 text-[12px] text-[#9ca3af]">...</span>
-          <button type="button" className="h-7 w-7 text-[12px] font-semibold text-[#4b5563]">
-            129
-          </button>
-          <button type="button" className="px-1 text-[#4b5563]">
-            <ChevronRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { useQuery } from "@apollo/client/react";
+import { BadgeCheck, Loader2, UserRoundPlus, Zap } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  DataTablePaginationSkeleton,
+  DataTableSkeleton,
+  TableEmptyState,
+} from "@/components/ui/data-table-states";
+import { QueryErrorPanel } from "@/components/ui/query-error-panel";
+import { UsersCuratorFab } from "@/components/ui/users-curator-fab";
+import { UsersDataTable } from "@/components/ui/users-data-table";
+import { UsersFiltersToolbar } from "@/components/ui/users-filters-toolbar";
+import { UsersTopMetricCard } from "@/components/ui/users-top-metric-card";
+import {
+  GET_USERS,
+  GET_USERS_OVERVIEW_STATS,
+  buildUsersQueryOptions,
+  type UsersOverviewStatsQueryResult,
+  type UsersQueryResult,
+  type UsersRoleFilter,
+} from "@/graphql/queries/users";
+import {
+  USERS_DEFAULT_PAGE_SIZE,
+  USERS_SEARCH_DEBOUNCE_MS,
+  USERS_TABLE_GRID,
+  USERS_TABLE_HEADERS,
+} from "@/lib/constants";
+import { getErrorMessage } from "@/lib/get-error-message";
+import { usersEntityConnectionsSum } from "@/lib/users-directory";
 
 export function UsersOverview() {
-  return (
-    <section className="px-6 py-8 lg:px-8">
-      <p className="text-xs text-[#94a3b8]">
-        Console <span className="text-[#0b57d0]">› Users Management</span>
-      </p>
-      <h1 className="font-title mt-1.5 text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
-        The Directory
-      </h1>
-      <p className="mt-2 max-w-3xl text-[16px] leading-relaxed text-[#64748b]">
-        A curated overview of all registered system architects and contributors.
-        Manage permissions, monitor activity, and explore entity relationships.
-      </p>
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(USERS_DEFAULT_PAGE_SIZE);
+  const [roleFilter, setRoleFilter] = useState<UsersRoleFilter>("all");
+  const [searchInput, setSearchInput] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const lastTotalCountRef = useRef<number | null>(null);
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-3">
-        <TopMetricCard
+  useEffect(() => {
+    const id = window.setTimeout(
+      () => setDebouncedSearch(searchInput.trim()),
+      USERS_SEARCH_DEBOUNCE_MS,
+    );
+    return () => window.clearTimeout(id);
+  }, [searchInput]);
+
+  useEffect(() => {
+    setPage(1);
+    lastTotalCountRef.current = null;
+  }, [debouncedSearch, roleFilter]);
+
+  const userOptions = useMemo(
+    () => buildUsersQueryOptions(page, pageSize, roleFilter, debouncedSearch),
+    [page, pageSize, roleFilter, debouncedSearch],
+  );
+
+  const {
+    data: usersData,
+    loading: usersLoading,
+    error: usersError,
+    refetch: refetchUsers,
+  } = useQuery<UsersQueryResult>(GET_USERS, {
+    variables: { options: userOptions },
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const {
+    data: statsData,
+    loading: statsLoading,
+    error: statsError,
+    refetch: refetchStats,
+  } = useQuery<UsersOverviewStatsQueryResult>(GET_USERS_OVERVIEW_STATS, {
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const usersPage = usersData?.users;
+
+  useEffect(() => {
+    const t = usersPage?.meta?.totalCount;
+    if (t != null) lastTotalCountRef.current = t;
+  }, [usersPage]);
+
+  const totalRecords =
+    usersPage?.meta?.totalCount ?? lastTotalCountRef.current;
+  const totalPages =
+    totalRecords != null && totalRecords > 0
+      ? Math.max(1, Math.ceil(totalRecords / pageSize))
+      : 1;
+
+  useEffect(() => {
+    if (totalRecords == null) return;
+    setPage((p) => Math.min(Math.max(1, p), totalPages));
+  }, [totalPages, totalRecords]);
+
+  const isInitialLoading = usersLoading && !usersPage && page === 1;
+  const isPagingWithoutRows = usersLoading && !usersPage && page > 1;
+  const isRefetching = usersLoading && Boolean(usersPage);
+
+  const rows = usersPage?.data ?? [];
+
+  const totalUsers = statsData?.users?.meta?.totalCount ?? null;
+  const postsTotal = statsData?.posts?.meta?.totalCount ?? null;
+  const albumsTotal = statsData?.albums?.meta?.totalCount ?? null;
+  const entityConnections = usersEntityConnectionsSum(postsTotal, albumsTotal);
+
+  const refetchAll = () => {
+    void refetchUsers();
+    void refetchStats();
+  };
+
+  const listError = usersError;
+  const statsFailed = Boolean(statsError);
+
+  return (
+    <section className="font-inter px-5 py-8 lg:px-7">
+      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p className="text-xs text-[#94a3b8]">
+            Console <span className="text-[#0053DB]">› Users Management</span>
+          </p>
+          <h1 className="font-title mt-1.5 text-[30px] font-bold leading-tight tracking-tight text-[#2A3439]">
+            The Directory
+          </h1>
+          <p className="mt-2 max-w-3xl text-[16px] leading-relaxed text-[#64748b]">
+            A curated overview of all registered system architects and contributors.
+            Manage permissions, monitor activity, and explore entity relationships.
+          </p>
+        </div>
+        {isRefetching ? (
+          <p className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium text-[#64748b] sm:pt-6">
+            <Loader2 className="h-3.5 w-3.5 animate-spin text-[#0053DB]" aria-hidden />
+            Refreshing…
+          </p>
+        ) : null}
+      </div>
+
+      {listError ? (
+        <QueryErrorPanel
+          title="Could not load users"
+          message={getErrorMessage(listError)}
+          onRetry={refetchAll}
+        />
+      ) : null}
+
+      {!listError && statsFailed ? (
+        <QueryErrorPanel
+          title="Could not load directory stats"
+          message={getErrorMessage(statsError!)}
+          onRetry={() => void refetchStats()}
+        />
+      ) : null}
+
+      <div className="mt-12 mb-6 grid gap-4 lg:grid-cols-3">
+        <UsersTopMetricCard
           icon={<UserRoundPlus className="h-4 w-4" strokeWidth={1.9} />}
           title="Total Curators"
-          value="1,284"
+          value={
+            statsLoading && totalUsers == null
+              ? "…"
+              : totalUsers != null
+                ? totalUsers.toLocaleString()
+                : "—"
+          }
           accent="+12.4%"
         />
-        <TopMetricCard
+        <UsersTopMetricCard
           icon={<BadgeCheck className="h-4 w-4" strokeWidth={1.9} />}
           title="Entity Connections"
-          value="14,892"
+          value={
+            statsLoading && entityConnections == null
+              ? "…"
+              : entityConnections != null
+                ? entityConnections.toLocaleString()
+                : "—"
+          }
           accent="Stable"
+          tone="entity"
         />
-        <TopMetricCard
+        <UsersTopMetricCard
           icon={<Zap className="h-4 w-4" strokeWidth={1.9} />}
           title="System Health"
           value="99.98%"
@@ -282,16 +187,66 @@ export function UsersOverview() {
         />
       </div>
 
-      <FiltersToolbar />
-      <CuratorsTable />
+      <UsersFiltersToolbar
+        advancedOpen={advancedOpen}
+        onToggleAdvanced={() => setAdvancedOpen((v) => !v)}
+        searchQuery={searchInput}
+        onSearchChange={setSearchInput}
+        roleFilter={roleFilter}
+        onRoleChange={setRoleFilter}
+      />
 
-      <button
-        type="button"
-        className="fixed bottom-4 right-4 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#0b57d0] text-white shadow-lg"
-        aria-label="Add curator"
-      >
-        <UserRoundPlus className="h-4.5 w-4.5" />
-      </button>
+      {!listError ? (
+        <div className="mt-5 overflow-hidden rounded-xl border border-[#dbe3ee] bg-white">
+          {isInitialLoading ? (
+            <DataTableSkeleton
+              columnHeaders={[...USERS_TABLE_HEADERS]}
+              gridTemplateColumns={USERS_TABLE_GRID}
+              rowCount={Math.min(pageSize, 25)}
+              loadingMessage="Loading users…"
+              className="rounded-none border-0 shadow-none"
+              aria-label="Loading users table"
+            />
+          ) : isPagingWithoutRows ? (
+            <DataTableSkeleton
+              columnHeaders={[...USERS_TABLE_HEADERS]}
+              gridTemplateColumns={USERS_TABLE_GRID}
+              rowCount={Math.min(pageSize, 25)}
+              loadingMessage="Loading page…"
+              footer={<DataTablePaginationSkeleton />}
+              className="rounded-none border-0 shadow-none"
+              aria-label="Loading users page"
+            />
+          ) : !usersLoading && rows.length === 0 ? (
+            <TableEmptyState
+              title={
+                debouncedSearch || roleFilter !== "all"
+                  ? "No users match your filters"
+                  : "No users found"
+              }
+              description={
+                debouncedSearch || roleFilter !== "all"
+                  ? "Try another role tab, clear the search, or open Advanced Filters to adjust your query."
+                  : "There are no users in this directory view."
+              }
+            />
+          ) : (
+            <UsersDataTable
+              rows={rows}
+              totalCount={totalRecords}
+              page={page}
+              pageSize={pageSize}
+              onPageChange={setPage}
+              onPageSizeChange={(next) => {
+                setPageSize(next);
+                setPage(1);
+              }}
+            />
+          )}
+        </div>
+      ) : null}
+
+      <UsersCuratorFab />
     </section>
   );
 }

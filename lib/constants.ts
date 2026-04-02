@@ -28,6 +28,31 @@ export const POSTS_TITLE_SEARCH_DEBOUNCE_MS = 350;
 
 export const POSTS_DEFAULT_PAGE_SIZE = 10;
 
+/** Users directory table (`users-overview` grid). */
+export const USERS_TABLE_HEADERS = [
+  "ID",
+  "Curator / Username",
+  "Contact Points",
+  "Website",
+  "Affiliation & Locale",
+  "Engagement",
+] as const;
+
+export const USERS_TABLE_GRID =
+  "56px minmax(0,1.2fr) minmax(0,1.15fr) minmax(0,0.75fr) minmax(0,1fr) minmax(0,0.8fr)" as const;
+
+export const USERS_DEFAULT_PAGE_SIZE = POSTS_DEFAULT_PAGE_SIZE;
+
+/** Directory search debounce (same cadence as posts title search). */
+export const USERS_SEARCH_DEBOUNCE_MS = POSTS_TITLE_SEARCH_DEBOUNCE_MS;
+
+/** Role tabs on the users directory toolbar (IDs are `UsersRoleFilter` in `graphql/queries/users`). */
+export const USERS_ROLE_TABS = [
+  { id: "all", label: "All Roles" },
+  { id: "admins", label: "Admins" },
+  { id: "editors", label: "Editors" },
+] as const;
+
 /** Todos overview table (aligned with `todos-overview` grid). */
 export const TODOS_TABLE_HEADERS = [
   "ID",
